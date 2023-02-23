@@ -47,7 +47,7 @@ export default function BasicTextFields() {
         required
         type="number"
         id="end"
-        label="Prize"
+        label="Price"
         variant="outlined"
         size="small"
         InputProps={{

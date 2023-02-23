@@ -5,8 +5,8 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
-export default function BasicSelect() {
-  const [role, setRole] = React.useState("");
+const BasicSelect = (props) => {
+  const { items, role, setRole } = props;
 
   const handleChange = (event) => {
     setRole(event.target.value);
@@ -23,10 +23,13 @@ export default function BasicSelect() {
           label="Role"
           onChange={handleChange}
         >
-          <MenuItem value={10}>Merchant</MenuItem>
-          <MenuItem value={20}>Market Owner</MenuItem>
+          {items.map((item) => {
+            return <MenuItem value={item.value}>{item.name}</MenuItem>;
+          })}
         </Select>
       </FormControl>
     </Box>
   );
-}
+};
+
+export default BasicSelect;

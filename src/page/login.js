@@ -1,9 +1,11 @@
 import React from "react";
 import "./App.css";
-import Button from "./componenet/Button";
+import Button from "@mui/material/Button";
 import Textfiled from "./componenet/Textfiled";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
+  const navigate = useNavigate();
   return (
     <div className="App">
       <header className="App-header">
@@ -12,16 +14,27 @@ function Login() {
           <Textfiled></Textfiled>
         </p>
         <p>
-          <Button></Button>
+          <Button
+            onClick={() => {
+              navigate("/profile");
+            }}
+            variant="contained"
+            style={{
+              backgroundColor: "#ffc422",
+              fontSize: "18px",
+            }}
+          >
+            {" "}
+            login{" "}
+          </Button>
         </p>
-        <a
-          className="App-link"
-          href="https://tenor.com/bItJt.gif"
-          target="_blank"
-          rel="noopener noreferrer"
+        <Button
+          onClick={() => {
+            navigate("/registor");
+          }}
         >
           Create Account
-        </a>
+        </Button>
         <a
           className="App-link"
           href="https://tenor.com/uQST.gif"

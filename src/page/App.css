@@ -40,8 +40,9 @@
   
 }
 .Picture{
-  width:  420px;
-  height: 420px;
+  width: 100%;
+  max-width: 310px;
+  height: 310px;
 
 }
 .App-link {

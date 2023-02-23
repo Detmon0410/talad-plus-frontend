@@ -2,7 +2,7 @@ import * as React from "react";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 
-export default function BasicButtons() {
+export default function BasicButtons(...rest) {
   return (
     <Stack>
       <Button
@@ -11,6 +11,7 @@ export default function BasicButtons() {
           backgroundColor: "#ffc422",
           fontSize: "18px",
         }}
+        {...rest}
       >
         Login
       </Button>

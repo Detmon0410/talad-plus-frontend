@@ -1,37 +1,46 @@
 import React from "react";
-import "./App.css";
-import Button from "./componenet/Button";
-import Textfiled from "./componenet/Textfiled";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import LoginPage from "./page/login";
+import Registor from "./page/register_main/registor_main";
+import UserHomePage from "./page/u_homepage";
+import UserProfile from "./page/u_profile";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import reportWebVitals from "./reportWebVitals";
+import DefualtLoader from "./page/componenet/loader/Loader";
 
 function App() {
+  const router = createBrowserRouter([
+    {
+      path: "/registor",
+      element: <Registor />,
+    },
+
+    {
+      path: "/profile",
+      element: <UserProfile />,
+      // children: [
+      //   {
+      //     path: "team",
+      //     element: <Team />,
+      //     loader: teamLoader,
+      //   },
+      // ],
+    },
+    {
+      path: "/home",
+      element: <UserHomePage />,
+    },
+    {
+      path: "*",
+      element: <LoginPage />,
+      // loader: <DefualtLoader />,
+    },
+  ]);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src="logo01.png" alt="logo" className="Picture" />
-        <p>
-          <Textfiled></Textfiled>
-        </p>
-        <p>
-          <Button> </Button>
-        </p>
-        <a
-          className="App-link"
-          href="https://tenor.com/bItJt.gif"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Create Account
-        </a>
-        <a
-          className="App-link"
-          href="https://tenor.com/uQST.gif"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Forget Username or Password
-        </a>
-        ;
-      </header>
+      <RouterProvider router={router} />
     </div>
   );
 }

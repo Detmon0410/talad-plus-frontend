@@ -4,7 +4,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import ImgList from "./ImageList";
+
 import ReviewCard from "./CardReview_User";
 import RecentCard from "./CardRecentMarket";
 
@@ -20,7 +20,7 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box sx={{ p: 3 }}>
+        <Box sx={{ p: 2 }}>
           <Typography>{children}</Typography>
         </Box>
       )}
@@ -63,17 +63,13 @@ export default function BasicTabs() {
           onChange={handleChange}
           aria-label="basic tabs example"
         >
-          <Tab label="รูปภาพสินค้า" {...a11yProps(0)} />
-          <Tab label="รีวิวจากเจ้าของตลาด" {...a11yProps(1)} />
-          <Tab label="ตลาดที่เช่าล่าสุด" {...a11yProps(2)} />
+          <Tab label="รีวิวจากเจ้าของตลาด" {...a11yProps(0)} />
+          <Tab label="ตลาดที่ถูกใจ" {...a11yProps(1)} />
         </Tabs>
       </Box>
+
       <TabPanel value={value} index={0}>
-        รูปภาพสินค้า
-        <ImgList></ImgList>
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        รีวิวจากผู้เช่า
+        รีวิวจากเจ้าของตลาด
         <ReviewCard
           style={{
             display: "flex",
@@ -82,8 +78,8 @@ export default function BasicTabs() {
           }}
         ></ReviewCard>
       </TabPanel>
-      <TabPanel value={value} index={2}>
-        ตลาดที่เช่าล่าสุด
+      <TabPanel value={value} index={1}>
+        ตลาดที่ถูกใจ
         <RecentCard></RecentCard>
       </TabPanel>
     </Box>
