@@ -1,9 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import LoginPage from "./page/login";
-import UserHomePage from "./page/u_homepage";
-import UserProfile from "./page/u_profile";
+
 import { BrowserRouter, Route } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
 import App from "./App";

@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import LoginPage from "./page/login";
+import LoginPage from "./page/login/login";
 import Registor from "./page/register_main/registor_main";
 import UserHomePage from "./page/u_homepage";
 import UserProfile from "./page/u_profile";

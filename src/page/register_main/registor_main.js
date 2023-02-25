@@ -6,8 +6,10 @@ import RoleSelect from "../componenet/Selector_role";
 import { postRegister } from "./register-service";
 import { isEmail } from "validator";
 import Button from "@mui/material/Button";
+import { useNavigate } from "react-router-dom";
 
 function Registor() {
+  const navigate = useNavigate();
   const [usernameInput, setUsernameInput] = React.useState("");
   const [nameInput, setNameInput] = React.useState("");
   const [passwordInput, setPasswordInput] = React.useState("");
@@ -45,7 +47,7 @@ function Registor() {
       isValidEmail == false ||
       isValidPassword == false
     ) {
-      setMessage("Fill is empty.");
+      setMessage("Fill is empty or Fill is Incorrect.");
       setShowMessage(true);
     } else {
       const payload = {
@@ -56,6 +58,7 @@ function Registor() {
         role: role,
       };
       const res = await postRegister(payload);
+      navigate(-1);
       console.log(res);
     }
   };
