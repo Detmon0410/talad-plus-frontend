@@ -11,8 +11,10 @@ import Tooltip from "@mui/material/Tooltip";
 
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
+import { NavLink } from "react-router-dom";
 
-export default function AccountMenu() {
+export default function AccountMenu(props) {
+  const { name, signOut, role } = props;
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -21,6 +23,7 @@ export default function AccountMenu() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
   return (
     <React.Fragment>
       <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>
@@ -34,7 +37,7 @@ export default function AccountMenu() {
             aria-expanded={open ? "true" : undefined}
           >
             <Avatar sx={{ width: 32, height: 32, bgcolor: deepPurple[500] }}>
-              JB
+              {name}
             </Avatar>
           </IconButton>
         </Tooltip>
@@ -74,8 +77,17 @@ export default function AccountMenu() {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <MenuItem onClick={handleClose}>My Profile</MenuItem>
-        <MenuItem onClick={handleClose}>My BookingMarket</MenuItem>
+        {role !== "Market" ? (
+          <>
+            <MenuItem onClick={handleClose}>MyProfile</MenuItem>
+            <MenuItem onClick={handleClose}>MyBookingMarket</MenuItem>
+          </>
+        ) : (
+          <>
+            <MenuItem onClick={handleClose}>MyMarket</MenuItem>
+            <MenuItem onClick={handleClose}>Management</MenuItem>
+          </>
+        )}
 
         <Divider />
 
@@ -85,11 +97,13 @@ export default function AccountMenu() {
           </ListItemIcon>
           Settings
         </MenuItem>
-        <MenuItem onClick={handleClose}>
-          <ListItemIcon>
-            <Logout fontSize="small" />
-          </ListItemIcon>
-          Logout
+        <MenuItem onClick={signOut}>
+          <NavLink to="login">
+            <ListItemIcon>
+              <Logout fontSize="small" />
+            </ListItemIcon>
+            Logout
+          </NavLink>
         </MenuItem>
       </Menu>
     </React.Fragment>

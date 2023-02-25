@@ -53,7 +53,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function SearchAppBar() {
+export default function customeAppBar(props) {
+  const { name, role, signIn, signOut } = props;
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" sx={{ bgcolor: "#ffc422" }}>
@@ -93,6 +94,9 @@ export default function SearchAppBar() {
             />
           </Search>
           <AccountMenu
+            name={name}
+            signOut={signOut}
+            role={role}
             alt="Josh Brush"
             src="/static/images/avatar/1.jpg"
             sx={{

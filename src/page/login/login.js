@@ -5,8 +5,11 @@ import TextField from "@mui/material/TextField";
 import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import { postLogin } from "./login-service";
+import { useDispatch } from "react-redux";
+import { updateUser } from "../../redux/user/actions";
 function Login() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [message, setMessage] = React.useState("");
   const [showMessage, setShowMessage] = React.useState(false);
   const [usernameInput, setUsernameInput] = React.useState("");
@@ -20,9 +23,14 @@ function Login() {
         username: usernameInput,
         password: passwordInput,
       };
-      const res = await postLogin(payload);
-      navigate("/home");
-      console.log(res);
+      try {
+        const res = await postLogin(payload);
+        dispatch(updateUser(res));
+        navigate("/home");
+      } catch (error) {
+        setMessage(error.response.data.message);
+        setShowMessage(true);
+      }
     }
   };
   return (

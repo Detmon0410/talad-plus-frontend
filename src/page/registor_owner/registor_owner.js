@@ -1,12 +1,19 @@
 import React from "react";
-import "./App.css";
+
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import RoleSelect from "./componenet/Selector_address";
-import Upload from "./componenet/ImageUp_MarketR";
-
+import RoleSelect from "../componenet/Selector_address";
+import Upload from "../componenet/ImageUp_MarketR";
 import Button from "@mui/material/Button";
+import { useNavigate } from "react-router-dom";
 function Registor() {
+  const navigate = useNavigate();
+  const [message, setMessage] = React.useState("");
+  const [showMessage, setShowMessage] = React.useState(false);
+  const [marketnameInput, setmarketnameInput] = React.useState("");
+  const [ownernameInput, setOwnernameInput] = React.useState("");
+  const [phonenumberInput, setPhoneNumberInput] = React.useState("");
+
   return (
     <div className="App">
       <header className="App-header">

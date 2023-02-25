@@ -1,12 +1,10 @@
 import React from "react";
 import "./App.css";
-import Appbar from "./componenet/AppbarMarket";
+import Appbar from "./componenet/AppbarUser";
 import Tabs from "./componenet/Tabbar_Home";
-
 function Registor() {
   return (
     <div className="App">
-      <Appbar></Appbar>
       <Tabs></Tabs>
     </div>
   );

@@ -3,6 +3,7 @@ import axios from "axios";
 const axiosInstance = axios.create({
   baseURL: "http://localhost:8081/apis",
   timeout: 30000,
+  withCredentials: true,
   // header: {},
 });
 
@@ -11,7 +12,8 @@ axiosInstance.interceptors.response.use(
     return response;
   },
   (error) => {
-    return error;
+    console.log("hehe");
+    return Promise.reject(error);
   }
 );
 
