@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import LoginPage from "./page/login/login";
 import Registor from "./page/register_main/registor_main";
-import UserHomePage from "./page/u_homepage";
+import UserHomePage from "./page/u_homepage/u_homepage";
 import UserProfile from "./page/u_profile";
 import MarketRegistor from "./page/registor_owner/registor_owner";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";

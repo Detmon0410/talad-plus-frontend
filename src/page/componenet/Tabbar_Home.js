@@ -39,7 +39,8 @@ function a11yProps(index) {
   };
 }
 
-export default function BasicTabs() {
+export default function BasicTabs(props) {
+  const { marketlist } = props;
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
@@ -68,33 +69,19 @@ export default function BasicTabs() {
       </Box>
       <TabPanel value={value} index={0}>
         ตลาดแนะนำ
-        <p
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Card></Card>
-        </p>
-        <p
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Card></Card>
-        </p>
-        <p
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Card></Card>
-        </p>
+        {marketlist.map((market) => {
+          return (
+            <p
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Card market={market}></Card>
+            </p>
+          );
+        })}
       </TabPanel>
       <TabPanel value={value} index={1}>
         ตลาดใกล้ฉัน
