@@ -5,11 +5,10 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
-export default function BasicSelect() {
-  const [District, setDistrict] = React.useState("");
-  const [Province, setProvince] = React.useState("");
-  const [PostNunber, setPostNumber] = React.useState("");
-
+export default function BasicSelect(props) {
+  const { items1, district, setDistrict } = props;
+  const { items2, province, setProvince } = props;
+  const { items3, post, setPostNumber } = props;
   const handleChangeD = (event) => {
     setDistrict(event.target.value);
   };
@@ -28,7 +27,7 @@ export default function BasicSelect() {
         <Select
           labelId="districtselect"
           id="districtselect"
-          value={District}
+          value={district}
           label="DistrictRole"
           onChange={handleChangeD}
         >
@@ -41,7 +40,7 @@ export default function BasicSelect() {
         <Select
           labelId="provinceselect"
           id="provinceselect"
-          value={Province}
+          value={province}
           label="Province"
           onChange={handleChangeP}
         >
@@ -54,7 +53,7 @@ export default function BasicSelect() {
         <Select
           labelId="Postnumeselect"
           id="postnumselect"
-          value={PostNunber}
+          value={post}
           label="PostNumber"
           onChange={handleChangePO}
         >

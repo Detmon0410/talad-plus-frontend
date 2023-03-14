@@ -4,8 +4,10 @@ import "./index.css";
 import LoginPage from "./page/login/login";
 import Registor from "./page/register_main/registor_main";
 import UserHomePage from "./page/u_homepage/u_homepage";
-import UserProfile from "./page/u_profile";
+import UserProfile from "./page/u_profiles/u_profile";
 import MarketRegistor from "./page/registor_owner/registor_owner";
+import MarketProfile from "./page/m_profiles/m_profile";
+import MarketControl from "./page/m_control/m_control";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
 import DefualtLoader from "./page/componenet/loader/Loader";
@@ -19,6 +21,7 @@ function App() {
   const userSelector = useSelector(selectUserReducer);
   const signIn = userSelector.signIn;
   const dispatch = useDispatch();
+  console.log("Yeah" + userSelector.role);
   const handleSignOut = () => {
     dispatch(signOut());
   };
@@ -36,6 +39,8 @@ function App() {
 
         <Routes>
           <Route path="/registor" element={<Registor />} />
+          <Route path="/MProfile" element={<MarketProfile />} />
+          <Route path="/MControl" element={<MarketControl />} />
           <Route path="/marketregistor" element={<MarketRegistor />} />
           <Route path="/profile" element={<UserProfile />} />
           <Route path="/home" element={<UserHomePage />} />

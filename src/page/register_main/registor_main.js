@@ -7,8 +7,8 @@ import { postRegister } from "./register-service";
 import { isEmail } from "validator";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
-
-function Registor() {
+import "../App.css";
+function Login() {
   const navigate = useNavigate();
   const [usernameInput, setUsernameInput] = React.useState("");
   const [nameInput, setNameInput] = React.useState("");
@@ -58,7 +58,12 @@ function Registor() {
         role: role,
       };
       const res = await postRegister(payload);
-      navigate(-1);
+      if (role == "Market") {
+        navigate("/marketregistor");
+      } else {
+        navigate(-1);
+      }
+
       console.log(res);
     }
   };
@@ -150,4 +155,4 @@ function Registor() {
   );
 }
 
-export default Registor;
+export default Login;

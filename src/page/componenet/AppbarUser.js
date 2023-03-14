@@ -10,6 +10,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import SearchIcon from "@mui/icons-material/Search";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import AccountMenu from "./AccountMenuU";
+import { useNavigate } from "react-router-dom";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -53,8 +54,13 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function customeAppBar(props) {
+export default function CustomeAppBar(props) {
   const { name, role, signIn, signOut } = props;
+  console.log("awww" + name + "nooo" + role);
+  const navigate = useNavigate();
+  const sendApi = () => {
+    navigate("/home");
+  };
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" sx={{ bgcolor: "#ffc422" }}>
@@ -66,7 +72,7 @@ export default function customeAppBar(props) {
             aria-label="open drawer"
             sx={{ mr: 2 }}
           >
-            <HomeIcon />
+            <HomeIcon onClick={sendApi} />
           </IconButton>
           <IconButton
             size="large"

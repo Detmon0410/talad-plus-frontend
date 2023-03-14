@@ -8,20 +8,32 @@ import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import { deepPurple } from "@mui/material/colors";
 import Tooltip from "@mui/material/Tooltip";
-
+import { useNavigate } from "react-router-dom";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import { NavLink } from "react-router-dom";
 
 export default function AccountMenu(props) {
   const { name, signOut, role } = props;
+  const navigate = useNavigate();
+  console.log(role);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+
+  console.log("This is" + role + name);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const sendApi = () => {
+    navigate("/MProfile");
+  };
+
+  const sendApiC = () => {
+    navigate("/MControl");
   };
 
   return (
@@ -79,13 +91,13 @@ export default function AccountMenu(props) {
       >
         {role !== "Market" ? (
           <>
-            <MenuItem onClick={handleClose}>MyProfile</MenuItem>
-            <MenuItem onClick={handleClose}>MyBookingMarket</MenuItem>
+            <MenuItem onClick={handleClose}>โปรไฟล์ของฉัน</MenuItem>
+            <MenuItem onClick={handleClose}>ตลาดที่จองไว้</MenuItem>
           </>
         ) : (
           <>
-            <MenuItem onClick={handleClose}>MyMarket</MenuItem>
-            <MenuItem onClick={handleClose}>Management</MenuItem>
+            <MenuItem onClick={sendApi}>ตลาดของฉัน</MenuItem>
+            <MenuItem onClick={sendApiC}>จัดการตลาด</MenuItem>
           </>
         )}
 
@@ -95,14 +107,14 @@ export default function AccountMenu(props) {
           <ListItemIcon>
             <Settings fontSize="small" />
           </ListItemIcon>
-          Settings
+          ตั้งค่า
         </MenuItem>
         <MenuItem onClick={signOut}>
           <NavLink to="login">
             <ListItemIcon>
               <Logout fontSize="small" />
             </ListItemIcon>
-            Logout
+            ออกจากระบบ
           </NavLink>
         </MenuItem>
       </Menu>

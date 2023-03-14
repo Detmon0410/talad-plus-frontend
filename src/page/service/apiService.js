@@ -12,7 +12,7 @@ axiosInstance.interceptors.response.use(
     return response;
   },
   (error) => {
-    console.log("hehe");
+    console.log("This is Error");
     return Promise.reject(error);
   }
 );
