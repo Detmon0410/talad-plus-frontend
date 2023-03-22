@@ -7,7 +7,7 @@ import UserHomePage from "./page/u_homepage/u_homepage";
 import UserProfile from "./page/u_profiles/u_profile";
 import MarketRegistor from "./page/registor_owner/registor_owner";
 import MarketProfile from "./page/m_profiles/m_profile";
-import MarketControl from "./page/m_control/m_control";
+import MarketControl from "./page/m_control/m_control2";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
 import DefualtLoader from "./page/componenet/loader/Loader";

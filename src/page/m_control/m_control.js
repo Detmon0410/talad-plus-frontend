@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-
 import Typography from "@mui/material/Typography";
 import CssBaseline from "@mui/material/CssBaseline";
 import { postCreateStall } from "./m_control-service";

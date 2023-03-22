@@ -7,7 +7,7 @@ import Container from "@mui/material/Container";
 import Rating from "@mui/material/Rating";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
-import Tabbar from "../componenet/Tabbar_MarketManager";
+import Tabbar from "../componenet/Tabbar_Market";
 import Button from "@mui/material/Button";
 import { postMyMarket } from "./m_profile-service";
 import { selectUserReducer } from "../../redux/user/selector";
@@ -91,7 +91,7 @@ function MProfile() {
                 md: 2,
               }}
             >
-              จัดการตลาด
+              อัพโหลดรูป
             </Button>
           </p>
         </Container>

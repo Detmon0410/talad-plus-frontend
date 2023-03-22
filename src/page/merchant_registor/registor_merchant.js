@@ -62,29 +62,9 @@ function Registor() {
         setShowMessage={setShowMessage}
       />
       <header className="App-header">
-        <h1 className="Text-Style">ลงทะเบียนตลาด</h1>
+        <h1 className="Text-Style">ที่อยู่ของคุณ</h1>
         <Box component="form" noValidate autoComplete="off">
           {" "}
-          <p>
-            <TextField
-              id="market_name"
-              label="Market Name"
-              value={marketnameInput}
-              onChange={(e) => setmarketnameInput(e.target.value)}
-              variant="filled"
-              sx={{ width: 300 }}
-            />
-          </p>
-          <p>
-            <TextField
-              id="market_owner"
-              label="Owner Name"
-              variant="filled"
-              value={ownernameInput}
-              onChange={(e) => setOwnernameInput(e.target.value)}
-              sx={{ width: 300 }}
-            />
-          </p>
           <p>
             <TextField
               id="phone_number"
@@ -108,16 +88,6 @@ function Registor() {
         </Box>
         <p>
           <RoleSelect></RoleSelect>
-        </p>
-
-        <p
-          style={{
-            fontSize: "12px",
-            color: "#000000",
-          }}
-        >
-          <h2>อัพโหลดรูปใบอนุญาตตลาด</h2>
-          <Upload></Upload>
         </p>
 
         <p>

@@ -45,7 +45,6 @@ function a11yProps(index) {
 
 export default function BasicTabs() {
   const [value, setValue] = React.useState(0);
-
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -84,16 +83,6 @@ export default function BasicTabs() {
         <Box display="flex" justifyContent="center" alignItems="center">
           <ZoneSet></ZoneSet>
         </Box>
-        <Button
-          variant="outlined"
-          size="small"
-          style={{
-            outlineColor: "blue",
-            fontSize: "15px",
-          }}
-        >
-          เพิ่มโซน
-        </Button>
         <p>ใส่รายละเอียดเกี่ยวกับสัญญา</p>
         <TextField
           id="outlined-multiline-static"
