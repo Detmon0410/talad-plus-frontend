@@ -55,7 +55,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function CustomeAppBar(props) {
-  const { name, role, signIn, signOut } = props;
+  const { img, name, role, signIn, signOut } = props;
   console.log("awww" + name + "nooo" + role);
   const navigate = useNavigate();
   const sendApi = () => {
@@ -100,6 +100,7 @@ export default function CustomeAppBar(props) {
             />
           </Search>
           <AccountMenu
+            img={img}
             name={name}
             signOut={signOut}
             role={role}

@@ -7,16 +7,18 @@ import RoleSelect from "../componenet/Selector_address";
 import Upload from "../componenet/ImageUp_MarketR";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
-import { postRegister } from "./registor_owner-service";
+import { postMeRegister } from "./register_merchant-service";
+
 function Registor() {
   const navigate = useNavigate();
   const [message, setMessage] = React.useState("");
   const [showMessage, setShowMessage] = React.useState(false);
-  const [marketnameInput, setmarketnameInput] = React.useState("");
-  const [ownernameInput, setOwnernameInput] = React.useState("");
-  const [phonenumberInput, setPhoneNumberInput] = React.useState("");
+  const [mnameInput, setmnameInput] = React.useState("");
+  const [districtInput, setDistrictInput] = React.useState("");
+  const [provinceInput, setProvinceInput] = React.useState("");
   const [addressInput, setAddressInput] = React.useState("");
-
+  const [phonenumberInput, setPhonenumberInput] = React.useState("");
+  const [image, setImage] = React.useState(new FormData());
   const provinceItem = [
     { value: "Bangna", name: "Bangna" },
     { value: "Bansue", name: "Bangna" },
@@ -31,25 +33,22 @@ function Registor() {
   ];
 
   const sentAPI = async () => {
-    if (
-      !marketnameInput ||
-      !ownernameInput ||
-      !phonenumberInput ||
-      !addressInput
-    ) {
+    if (!mnameInput || !addressInput) {
       setMessage("Fill is empty or Fill is Incorrect.");
       setShowMessage(true);
     } else {
-      const payload = {
-        name: marketnameInput,
-        phone: phonenumberInput,
-        address: addressInput,
-        province: "Bangkok",
-        district: "Bangsue",
-        post: "18000",
-      };
-      const res = await postRegister(payload);
-      navigate("*");
+      const payload = new FormData();
+      payload.append("name", mnameInput);
+      payload.append("phone", phonenumberInput);
+      payload.append("address", addressInput);
+      payload.append("province", "Bangkok");
+      payload.append("district", "Bangkok");
+      payload.append("post", "123444");
+      payload.append("img", image, image.name);
+
+      console.log(payload);
+      const res = await postMeRegister(payload);
+      navigate("/login");
       console.log(res);
     }
   };
@@ -62,15 +61,26 @@ function Registor() {
         setShowMessage={setShowMessage}
       />
       <header className="App-header">
-        <h1 className="Text-Style">ที่อยู่ของคุณ</h1>
+        <h1 className="Text-Style">ลงทะเบียนพ่อค้าแม่ค้า</h1>
+
         <Box component="form" noValidate autoComplete="off">
           {" "}
           <p>
             <TextField
-              id="phone_number"
-              label="Phone Number"
+              id="mName"
+              label="Name&SurName "
+              value={mnameInput}
+              onChange={(e) => setmnameInput(e.target.value)}
+              variant="filled"
+              sx={{ width: 300 }}
+            />
+          </p>
+          <p>
+            <TextField
+              id="phoneNumber"
+              label="PhoneNumber"
               value={phonenumberInput}
-              onChange={(e) => setPhoneNumberInput(e.target.value)}
+              onChange={(e) => setPhonenumberInput(e.target.value)}
               variant="filled"
               sx={{ width: 300 }}
             />
@@ -84,6 +94,14 @@ function Registor() {
               variant="filled"
               sx={{ width: 300 }}
             />
+          </p>
+          <p>
+            <h4 className="Text-Style-seconds">อัพโหลดรูปโปรไฟล์</h4>
+            <Upload
+              setFormData={(e) => {
+                setImage(e);
+              }}
+            ></Upload>
           </p>
         </Box>
         <p>

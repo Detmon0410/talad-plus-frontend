@@ -1,6 +1,6 @@
 import axiosInstance from "../service/apiService";
 
-export async function postRegister(request) {
-  const response = await axiosInstance.post("/profile", request);
+export async function postMyProfile(request) {
+  const response = await axiosInstance.get("/profile", request);
   return response.data;
 }

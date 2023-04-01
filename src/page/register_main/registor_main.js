@@ -61,7 +61,7 @@ function Login() {
       if (role == "Market") {
         navigate("/marketregistor");
       } else {
-        navigate(-1);
+        navigate("/merchantregistor");
       }
 
       console.log(res);

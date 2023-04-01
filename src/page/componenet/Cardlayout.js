@@ -5,6 +5,7 @@ import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
+import Button from "@mui/material/Button";
 import Collapse from "@mui/material/Collapse";
 import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
@@ -15,7 +16,8 @@ import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import PlaceIcon from "@mui/icons-material/Place";
-
+import { getSelectedMarket } from "../public_market_profile/public_marketprofile-service";
+import { useNavigate } from "react-router-dom";
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
   return <IconButton {...other} />;
@@ -31,10 +33,22 @@ export default function RecipeReviewCard(props) {
   const { market } = props;
   const [expanded, setExpanded] = React.useState(false);
 
+  const navigate = useNavigate();
+
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+  const handleClick = async () => {
+    const marketId = market._id;
+    const payload = {};
+    console.log(marketId);
+    const res = await getSelectedMarket(payload, marketId);
+    navigate("/Viewmarket", {
+      state: res,
+    });
 
+    console.log(res);
+  };
   return (
     <Card sx={{ maxWidth: 800 }}>
       <CardHeader
@@ -46,17 +60,17 @@ export default function RecipeReviewCard(props) {
         title={market.name}
         subheader={market.province + "," + market.district}
       />
-      <CardMedia
-        component="img"
-        height="194"
-        image="/static/images/cards/paella.jpg"
-        alt="Paella dish"
-      />
+      <Button onClick={handleClick}>
+        <CardMedia
+          component="img"
+          height="194"
+          image="/static/images/cards/paella.jpg"
+          alt="Paella dish"
+        />
+      </Button>
       <CardContent>
         <Typography variant="body2" color="text.secondary">
-          This impressive paella is a perfect party dish and a fun meal to cook
-          together with your guests. Add 1 cup of frozen peas along with the
-          mussels, if you like.
+          {market.detail}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>

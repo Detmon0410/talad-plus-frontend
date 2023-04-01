@@ -82,18 +82,6 @@ function MProfile() {
             disabled
           />
           <Tabbar></Tabbar>
-          <p>
-            <Button
-              variant="contained"
-              style={{
-                backgroundColor: "#ffc422",
-                fontSize: "18px",
-                md: 2,
-              }}
-            >
-              อัพโหลดรูป
-            </Button>
-          </p>
         </Container>
       </React.Fragment>
     </div>

@@ -26,6 +26,7 @@ function Login() {
       };
       try {
         const res = await postLogin(payload);
+        console.log(res);
         dispatch(updateUser(res));
         navigate("/home");
       } catch (error) {

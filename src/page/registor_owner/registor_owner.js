@@ -3,11 +3,13 @@ import "../App.css";
 import Alert from "../componenet/Alert/Alert1997";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import RoleSelect from "../componenet/Selector_address";
+import AddressSelect from "../componenet/Selector_address";
 import Upload from "../componenet/ImageUp_MarketR";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import { postRegister } from "./registor_owner-service";
+import InputAddress from "react-thailand-address-autocomplete";
+
 function Registor() {
   const navigate = useNavigate();
   const [message, setMessage] = React.useState("");
@@ -16,7 +18,7 @@ function Registor() {
   const [ownernameInput, setOwnernameInput] = React.useState("");
   const [phonenumberInput, setPhoneNumberInput] = React.useState("");
   const [addressInput, setAddressInput] = React.useState("");
-
+  const [image, setImage] = React.useState();
   const provinceItem = [
     { value: "Bangna", name: "Bangna" },
     { value: "Bansue", name: "Bangna" },
@@ -107,7 +109,7 @@ function Registor() {
           </p>
         </Box>
         <p>
-          <RoleSelect></RoleSelect>
+          <AddressSelect></AddressSelect>
         </p>
 
         <p
@@ -117,7 +119,7 @@ function Registor() {
           }}
         >
           <h2>อัพโหลดรูปใบอนุญาตตลาด</h2>
-          <Upload></Upload>
+          <Upload setFormData={setImage}></Upload>
         </p>
 
         <p>

@@ -56,10 +56,17 @@
 }
 
 .Text-Style{
-  
-  
+   
   
   font-size: calc(30px + 2vmin);
+  color: rgb(0, 0, 0);
+
+}
+
+.Text-Style-seconds{
+   
+  
+  font-size: calc(18px + 2vmin);
   color: rgb(0, 0, 0);
 
 }

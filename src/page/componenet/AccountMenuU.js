@@ -14,13 +14,12 @@ import Logout from "@mui/icons-material/Logout";
 import { NavLink } from "react-router-dom";
 
 export default function AccountMenu(props) {
-  const { name, signOut, role } = props;
+  const { img, name, signOut, role } = props;
   const navigate = useNavigate();
-  console.log(role);
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
-  console.log("This is" + role + name);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -34,6 +33,9 @@ export default function AccountMenu(props) {
 
   const sendApiC = () => {
     navigate("/MControl");
+  };
+  const sendApiMC = () => {
+    navigate("/Profile");
   };
 
   return (
@@ -49,7 +51,13 @@ export default function AccountMenu(props) {
             aria-expanded={open ? "true" : undefined}
           >
             <Avatar sx={{ width: 32, height: 32, bgcolor: deepPurple[500] }}>
-              {name}
+              <img
+                style={{
+                  width: 32,
+                  height: 32,
+                }}
+                src={`data:image/jpeg;base64,${img}`}
+              />
             </Avatar>
           </IconButton>
         </Tooltip>
@@ -91,7 +99,7 @@ export default function AccountMenu(props) {
       >
         {role !== "Market" ? (
           <>
-            <MenuItem onClick={handleClose}>โปรไฟล์ของฉัน</MenuItem>
+            <MenuItem onClick={sendApiMC}>โปรไฟล์ของฉัน</MenuItem>
             <MenuItem onClick={handleClose}>ตลาดที่จองไว้</MenuItem>
           </>
         ) : (

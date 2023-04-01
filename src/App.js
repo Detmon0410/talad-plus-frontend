@@ -8,6 +8,8 @@ import UserProfile from "./page/u_profiles/u_profile";
 import MarketRegistor from "./page/registor_owner/registor_owner";
 import MarketProfile from "./page/m_profiles/m_profile";
 import MarketControl from "./page/m_control/m_control2";
+import MerchantRegistor from "./page/merchant_registor/registor_merchant";
+import PMarketprofile from "./page/public_market_profile/public_marketprofile";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
 import DefualtLoader from "./page/componenet/loader/Loader";
@@ -21,7 +23,7 @@ function App() {
   const userSelector = useSelector(selectUserReducer);
   const signIn = userSelector.signIn;
   const dispatch = useDispatch();
-  console.log("Yeah" + userSelector.role);
+
   const handleSignOut = () => {
     dispatch(signOut());
   };
@@ -31,6 +33,7 @@ function App() {
       <BrowserRouter>
         {signIn && (
           <Appbar
+            img={userSelector.img}
             name={userSelector.name}
             role={userSelector.role}
             signOut={handleSignOut}
@@ -41,7 +44,9 @@ function App() {
           <Route path="/registor" element={<Registor />} />
           <Route path="/MProfile" element={<MarketProfile />} />
           <Route path="/MControl" element={<MarketControl />} />
+          <Route path="/Viewmarket" element={<PMarketprofile />} />
           <Route path="/marketregistor" element={<MarketRegistor />} />
+          <Route path="/merchantregistor" element={<MerchantRegistor />} />
           <Route path="/profile" element={<UserProfile />} />
           <Route path="/home" element={<UserHomePage />} />
           <Route path="/login" element={<LoginPage />} />
