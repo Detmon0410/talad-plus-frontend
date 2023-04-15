@@ -17,6 +17,7 @@
   }
 .alert-container {
     position: absolute;
+    z-index: 999;
     display: flex;
     opacity: 0.7;
     gap: 10px;

@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import { NavLink } from "react-router-dom";
+import MenuIcon from "@mui/icons-material/Menu";
 
 export default function AccountMenu(props) {
   const { img, name, signOut, role } = props;
@@ -50,15 +51,19 @@ export default function AccountMenu(props) {
             aria-haspopup="true"
             aria-expanded={open ? "true" : undefined}
           >
-            <Avatar sx={{ width: 32, height: 32, bgcolor: deepPurple[500] }}>
-              <img
-                style={{
-                  width: 32,
-                  height: 32,
-                }}
-                src={`data:image/jpeg;base64,${img}`}
-              />
-            </Avatar>
+            {role !== "Market" ? (
+              <Avatar sx={{ width: 32, height: 32, bgcolor: deepPurple[500] }}>
+                <img
+                  style={{
+                    width: 32,
+                    height: 32,
+                  }}
+                  src={`data:image/jpeg;base64,${img}`}
+                />
+              </Avatar>
+            ) : (
+              <MenuIcon sx={{ width: 32, height: 32 }}></MenuIcon>
+            )}
           </IconButton>
         </Tooltip>
       </Box>

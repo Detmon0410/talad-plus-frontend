@@ -8,7 +8,6 @@ import Upload from "../componenet/ImageUp_MarketR";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import { postRegister } from "./registor_owner-service";
-import InputAddress from "react-thailand-address-autocomplete";
 
 function Registor() {
   const navigate = useNavigate();
@@ -19,6 +18,8 @@ function Registor() {
   const [phonenumberInput, setPhoneNumberInput] = React.useState("");
   const [addressInput, setAddressInput] = React.useState("");
   const [image, setImage] = React.useState();
+  const [imagelicense, setImageLicense] = React.useState();
+
   const provinceItem = [
     { value: "Bangna", name: "Bangna" },
     { value: "Bansue", name: "Bangna" },
@@ -31,7 +32,6 @@ function Registor() {
     { value: "10800", name: "10800" },
     { value: "11800", name: "11800" },
   ];
-
   const sentAPI = async () => {
     if (
       !marketnameInput ||
@@ -42,16 +42,19 @@ function Registor() {
       setMessage("Fill is empty or Fill is Incorrect.");
       setShowMessage(true);
     } else {
-      const payload = {
-        name: marketnameInput,
-        phone: phonenumberInput,
-        address: addressInput,
-        province: "Bangkok",
-        district: "Bangsue",
-        post: "18000",
-      };
+      const payload = new FormData();
+      payload.append("name", marketnameInput);
+      payload.append("phone", phonenumberInput);
+      payload.append("address", addressInput);
+      payload.append("province", "Bangkok");
+      payload.append("district", "Bangkok");
+      payload.append("post", "123444");
+      payload.append("img", image, image.name);
+      payload.append("imglicense", imagelicense, imagelicense.name);
+
+      console.log(payload);
       const res = await postRegister(payload);
-      navigate("*");
+      navigate("/login");
       console.log(res);
     }
   };
@@ -118,8 +121,18 @@ function Registor() {
             color: "#000000",
           }}
         >
-          <h2>อัพโหลดรูปใบอนุญาตตลาด</h2>
+          <h2>อัพโหลดรูปภาพปกตลาด</h2>
           <Upload setFormData={setImage}></Upload>
+        </p>
+
+        <p
+          style={{
+            fontSize: "12px",
+            color: "#000000",
+          }}
+        >
+          <h2>อัพโหลดรูปใบอนุญาตตลาด</h2>
+          <Upload setFormData={setImageLicense}></Upload>
         </p>
 
         <p>

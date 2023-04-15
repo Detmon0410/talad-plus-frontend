@@ -10,6 +10,7 @@ import MarketProfile from "./page/m_profiles/m_profile";
 import MarketControl from "./page/m_control/m_control2";
 import MerchantRegistor from "./page/merchant_registor/registor_merchant";
 import PMarketprofile from "./page/public_market_profile/public_marketprofile";
+import BookingStall from "./page/m_booking/m_booking";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
 import DefualtLoader from "./page/componenet/loader/Loader";
@@ -47,6 +48,7 @@ function App() {
           <Route path="/Viewmarket" element={<PMarketprofile />} />
           <Route path="/marketregistor" element={<MarketRegistor />} />
           <Route path="/merchantregistor" element={<MerchantRegistor />} />
+          <Route path="/bookingstall" element={<BookingStall />} />
           <Route path="/profile" element={<UserProfile />} />
           <Route path="/home" element={<UserHomePage />} />
           <Route path="/login" element={<LoginPage />} />

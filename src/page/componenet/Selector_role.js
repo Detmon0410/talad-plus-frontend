@@ -6,7 +6,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
 const BasicSelect = (props) => {
-  const { items, role, setRole } = props;
+  const { items, role, setRole, n } = props;
 
   const handleChange = (event) => {
     setRole(event.target.value);
@@ -15,12 +15,12 @@ const BasicSelect = (props) => {
   return (
     <Box sx={{ minWidth: 220 }}>
       <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Role</InputLabel>
+        <InputLabel id="demo-simple-select-label">{n}</InputLabel>
         <Select
           labelId="roleselect"
           id="roleselect"
           value={role}
-          label="Role"
+          label={n}
           onChange={handleChange}
         >
           {items.map((item) => {

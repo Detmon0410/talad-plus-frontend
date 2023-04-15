@@ -33,13 +33,20 @@ function MProfile() {
         <CssBaseline />
         <Container maxWidth="sm">
           <p></p>
-          <Box
-            sx={{
-              bgcolor: "#cfe8fc",
-              height: "20vh",
-              width: "100%",
-            }}
-          />
+          {marketDetail.map((pic) => (
+            <img
+              style={{
+                display: "block",
+                marginLeft: "auto",
+                marginRight: "auto",
+                width: "100%",
+                height: "80%",
+                maxHeight: 360,
+                maxWidth: 820,
+              }}
+              src={`data:image/jpeg;base64,${pic.img}`}
+            />
+          ))}
           <p></p>
           {marketDetail.map((mname) => (
             <Typography

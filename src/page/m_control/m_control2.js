@@ -21,6 +21,8 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import InputAdornment from "@mui/material/InputAdornment";
+import InputAddress from "react-thailand-address-autocomplete";
+import TypeSelect from "../componenet/Selector_role";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -72,9 +74,16 @@ export default function BasicTabs() {
   const [endInput, setEndInput] = React.useState("");
   const [priceInput, setPricewordInput] = React.useState("");
   const marketId = marketDetail.map((mname) => mname._id);
+  const [image, setImage] = React.useState(new FormData());
   const [date, setDate] = React.useState({
     opendate: [],
   });
+  const [markettype, setMarketType] = React.useState();
+
+  const items = [
+    { value: "Month", name: "รายเดือน" },
+    { value: "Day", name: "รายวัน" },
+  ];
 
   useEffect(() => {
     console.log(date);
@@ -134,15 +143,15 @@ export default function BasicTabs() {
 
       setShowMessage(true);
     } else {
-      const payload = {
-        zone: zoneInput,
-        startNum: startInput,
-        endNum: endInput,
-        price: priceInput,
-        about: aboutMarket,
-        dayOpen: date.opendate,
-      };
-
+      const payload = new FormData();
+      payload.append("zone", zoneInput);
+      payload.append("startNum", startInput);
+      payload.append("endNum", endInput);
+      payload.append("price", priceInput);
+      payload.append("about", aboutMarket);
+      payload.append("dayOpen", date.opendate);
+      payload.append("mtype", markettype);
+      payload.append("img", image, image.name);
       const res = await postCreateStall(marketId, payload);
       console.log(payload);
       console.log(res);
@@ -188,7 +197,13 @@ export default function BasicTabs() {
       </Box>
       <TabPanel value={value} index={0}>
         อัพโหลดแผนผังตลาด
-        <Upload></Upload>
+        <Upload
+          setFormData={(e) => {
+            setImage(e);
+          }}
+        >
+          {" "}
+        </Upload>
         <p></p>
         กำหนดวันของตลาด
         <Box display="flex" justifyContent="center" alignItems="center">
@@ -310,8 +325,20 @@ export default function BasicTabs() {
               value={priceInput}
               onChange={(e) => setPricewordInput(e.target.value)}
             />
-            <p></p>
           </Box>
+          <p></p>
+        </Box>
+        <p>กำหนดรูปแบบการเช่า</p>
+        <Box display="flex" justifyContent="center" alignItems="center">
+          <p>
+            {" "}
+            <TypeSelect
+              items={items}
+              role={markettype}
+              setRole={setMarketType}
+              n={"Market Type"}
+            />
+          </p>
         </Box>
         <p>ใส่รายละเอียดเกี่ยวกับสัญญา</p>
         <TextField

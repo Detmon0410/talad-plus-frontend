@@ -44,7 +44,9 @@ function a11yProps(index) {
 }
 
 export default function BasicTabs() {
+  const { setFormData } = props;
   const [value, setValue] = React.useState(0);
+  const [image, setImage] = React.useState(new FormData());
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -71,7 +73,7 @@ export default function BasicTabs() {
       </Box>
       <TabPanel value={value} index={0}>
         อัพโหลดแผนผังตลาด
-        <Upload></Upload>
+        <Upload setFormData={setImage}></Upload>
         <p></p>
         กำหนดวันของตลาด
         <Box display="flex" justifyContent="center" alignItems="center">

@@ -12,8 +12,8 @@ axiosInstance.interceptors.response.use(
     return response;
   },
   (error) => {
-    console.log("This is Error");
-    return Promise.reject(error);
+    console.log("Axios request Error");
+    return error;
   }
 );
 

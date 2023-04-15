@@ -18,6 +18,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import PlaceIcon from "@mui/icons-material/Place";
 import { getSelectedMarket } from "../public_market_profile/public_marketprofile-service";
 import { useNavigate } from "react-router-dom";
+
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
   return <IconButton {...other} />;
@@ -32,9 +33,7 @@ const ExpandMore = styled((props) => {
 export default function RecipeReviewCard(props) {
   const { market } = props;
   const [expanded, setExpanded] = React.useState(false);
-
   const navigate = useNavigate();
-
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
@@ -43,12 +42,13 @@ export default function RecipeReviewCard(props) {
     const payload = {};
     console.log(marketId);
     const res = await getSelectedMarket(payload, marketId);
+
     navigate("/Viewmarket", {
       state: res,
     });
-
     console.log(res);
   };
+
   return (
     <Card sx={{ maxWidth: 800 }}>
       <CardHeader
@@ -64,9 +64,9 @@ export default function RecipeReviewCard(props) {
         <CardMedia
           component="img"
           height="194"
-          image="/static/images/cards/paella.jpg"
+          image={`data:image/jpeg;base64,${market.img}`}
           alt="Paella dish"
-        />
+        ></CardMedia>
       </Button>
       <CardContent>
         <Typography variant="body2" color="text.secondary">

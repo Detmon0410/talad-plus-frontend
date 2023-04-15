@@ -136,7 +136,7 @@ function Login() {
           </p>
         </Box>
         <p>
-          <RoleSelect items={items} role={role} setRole={setRole} />
+          <RoleSelect items={items} role={role} setRole={setRole} n={"Role"} />
         </p>
         <p>
           <Button

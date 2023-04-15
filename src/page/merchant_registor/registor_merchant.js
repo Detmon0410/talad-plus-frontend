@@ -117,7 +117,7 @@ function Registor() {
             }}
             onClick={sentAPI}
           >
-            Next
+            Submit
           </Button>
         </p>
       </header>

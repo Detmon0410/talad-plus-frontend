@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import "../App.css";
-import Appbar from "../componenet/AppbarMarket";
+
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
@@ -13,14 +13,29 @@ import { getSelectedMarket } from "./public_marketprofile-service";
 import { selectUserReducer } from "../../redux/user/selector";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
+import { blue } from "@mui/material/colors";
+import { useNavigate } from "react-router-dom";
+import { getStallAll } from "../m_booking/m_booking-service";
 
-function MProfile({ route }) {
+function MProfile() {
+  const navigate = useNavigate();
   const { state } = useLocation();
   const userSelector = useSelector(selectUserReducer);
   const [marketDetail, setMarketDetail] = React.useState(state);
+  const [date, setDate] = React.useState(new Date());
+
+  const handleClick = async () => {
+    const marketId = marketDetail._id;
+
+    const res = await getStallAll(marketId);
+    navigate("/bookingstall", {
+      state: res,
+    });
+    console.log("this is " + res);
+  };
 
   useEffect(() => {
-    console.log(marketDetail);
+    console.log("this is" + marketDetail._id);
   }, [marketDetail]);
   useEffect(() => {
     console.log(state);
@@ -37,12 +52,30 @@ function MProfile({ route }) {
         <Container maxWidth="sm">
           <p></p>
           <Box
-            sx={{
-              bgcolor: "#cfe8fc",
-              height: "20vh",
+            style={{
+              display: "block",
+              marginLeft: "auto",
+              marginRight: "auto",
               width: "100%",
+              height: "80%",
+              maxHeight: 360,
+              maxWidth: 820,
+              bgcolor: blue,
             }}
-          />
+          >
+            <img
+              style={{
+                display: "block",
+                marginLeft: "auto",
+                marginRight: "auto",
+                width: "100%",
+                height: "80%",
+                maxHeight: 360,
+                maxWidth: 820,
+              }}
+              src={`data:image/jpeg;base64,${marketDetail.img}`}
+            />
+          </Box>
           <p></p>
           <Typography
             variant="h1"
@@ -60,7 +93,6 @@ function MProfile({ route }) {
           >
             {marketDetail.province} ,{marketDetail.district}
           </Typography>
-
           <p>
             <Box
               sx={{
@@ -80,6 +112,20 @@ function MProfile({ route }) {
             sx={{ width: "100%" }}
             disabled
           />
+          <p></p>
+          <Box>
+            <Button
+              variant="contained"
+              style={{
+                backgroundColor: "#33cc33",
+                fontSize: "18px",
+              }}
+              onClick={handleClick}
+            >
+              จองพื้นที่ขายของ
+            </Button>
+          </Box>
+          <p></p>
           <Tabbar></Tabbar>
         </Container>
       </React.Fragment>
