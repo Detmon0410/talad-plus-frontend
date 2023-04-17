@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "../App.css";
 import Alert from "../componenet/Alert/Alert1997";
 import Box from "@mui/material/Box";
@@ -8,29 +8,21 @@ import Upload from "../componenet/ImageUp_MarketR";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import { postMeRegister } from "./register_merchant-service";
+import {
+  ThailandAddressTypeahead,
+  ThailandAddressValue,
+} from "react-thailand-address-typeahead";
 
 function Registor() {
   const navigate = useNavigate();
   const [message, setMessage] = React.useState("");
   const [showMessage, setShowMessage] = React.useState(false);
   const [mnameInput, setmnameInput] = React.useState("");
-  const [districtInput, setDistrictInput] = React.useState("");
-  const [provinceInput, setProvinceInput] = React.useState("");
+
   const [addressInput, setAddressInput] = React.useState("");
   const [phonenumberInput, setPhonenumberInput] = React.useState("");
   const [image, setImage] = React.useState(new FormData());
-  const provinceItem = [
-    { value: "Bangna", name: "Bangna" },
-    { value: "Bansue", name: "Bangna" },
-  ];
-  const districtItem = [
-    { value: "Bangkok", name: "Bangkok" },
-    { value: "Bangkok", name: "Bangkok" },
-  ];
-  const postItem = [
-    { value: "10800", name: "10800" },
-    { value: "11800", name: "11800" },
-  ];
+  const [val, setVal] = useState(ThailandAddressValue.empty());
 
   const sentAPI = async () => {
     if (!mnameInput || !addressInput) {
@@ -41,9 +33,10 @@ function Registor() {
       payload.append("name", mnameInput);
       payload.append("phone", phonenumberInput);
       payload.append("address", addressInput);
-      payload.append("province", "Bangkok");
-      payload.append("district", "Bangkok");
-      payload.append("post", "123444");
+      payload.append("province", val.province);
+      payload.append("subdistrict", val.subdistrict);
+      payload.append("district", val.district);
+      payload.append("post", val.postalCode);
       payload.append("img", image, image.name);
 
       console.log(payload);
@@ -69,9 +62,10 @@ function Registor() {
             <TextField
               id="mName"
               label="Name&SurName "
+              size="small"
               value={mnameInput}
               onChange={(e) => setmnameInput(e.target.value)}
-              variant="filled"
+              variant="outlined"
               sx={{ width: 300 }}
             />
           </p>
@@ -79,22 +73,82 @@ function Registor() {
             <TextField
               id="phoneNumber"
               label="PhoneNumber"
+              size="small"
               value={phonenumberInput}
               onChange={(e) => setPhonenumberInput(e.target.value)}
-              variant="filled"
+              variant="outlined"
               sx={{ width: 300 }}
             />
           </p>
           <p>
             <TextField
+              size="small"
               id="market_address"
-              label="Market Address"
+              label="Address"
               value={addressInput}
               onChange={(e) => setAddressInput(e.target.value)}
-              variant="filled"
+              variant="outlined"
               sx={{ width: 300 }}
             />
           </p>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              flexDirection: "column",
+            }}
+          >
+            {" "}
+            <ThailandAddressTypeahead
+              value={val}
+              onValueChange={(val) => setVal(val)}
+            >
+              <ThailandAddressTypeahead.SubdistrictInput
+                style={{
+                  borderRadius: 5,
+                  marginBottom: 10,
+                  fontSize: 24,
+                  border: "1px solid grey",
+                }}
+                placeholder="Subdistrict"
+              />
+              <ThailandAddressTypeahead.DistrictInput
+                style={{
+                  borderRadius: 5,
+                  marginBottom: 10,
+                  fontSize: 24,
+                  border: "1px solid grey",
+                }}
+                placeholder="District"
+              />
+              <ThailandAddressTypeahead.ProvinceInput
+                style={{
+                  borderRadius: 5,
+                  marginBottom: 10,
+                  fontSize: 24,
+                  border: "1px solid grey",
+                }}
+                placeholder="Province"
+              />
+              <ThailandAddressTypeahead.PostalCodeInput
+                style={{
+                  borderRadius: 5,
+                  marginBottom: 10,
+                  fontSize: 24,
+                  border: "1px solid grey",
+                }}
+                placeholder="Postal Code"
+              />
+
+              <ThailandAddressTypeahead.Suggestion
+                containerProps={{
+                  style: { border: "1px solid black" },
+                }}
+                optionItemProps={{ style: { fontSize: 16, cursor: "pointer" } }}
+              />
+            </ThailandAddressTypeahead>
+          </Box>
           <p>
             <h4 className="Text-Style-seconds">อัพโหลดรูปโปรไฟล์</h4>
             <Upload
@@ -104,9 +158,7 @@ function Registor() {
             ></Upload>
           </p>
         </Box>
-        <p>
-          <RoleSelect></RoleSelect>
-        </p>
+        <p></p>
 
         <p>
           <Button

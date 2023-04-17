@@ -8,6 +8,7 @@ import { isEmail } from "validator";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import "../App.css";
+
 function Login() {
   const navigate = useNavigate();
   const [usernameInput, setUsernameInput] = React.useState("");
@@ -20,6 +21,7 @@ function Login() {
   const [isValidPassword, setIsValidPassword] = React.useState(true);
   const [message, setMessage] = React.useState("");
   const [showMessage, setShowMessage] = React.useState(false);
+
   const items = [
     { value: "Merchant", name: "Merchant" },
     { value: "Market", name: "Market" },

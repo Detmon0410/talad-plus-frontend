@@ -21,7 +21,6 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import InputAdornment from "@mui/material/InputAdornment";
-import InputAddress from "react-thailand-address-autocomplete";
 import TypeSelect from "../componenet/Selector_role";
 
 function TabPanel(props) {

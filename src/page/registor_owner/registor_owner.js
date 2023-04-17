@@ -1,13 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../App.css";
 import Alert from "../componenet/Alert/Alert1997";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import AddressSelect from "../componenet/Selector_address";
+
 import Upload from "../componenet/ImageUp_MarketR";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import { postRegister } from "./registor_owner-service";
+import {
+  ThailandAddressTypeahead,
+  ThailandAddressValue,
+} from "react-thailand-address-typeahead";
 
 function Registor() {
   const navigate = useNavigate();
@@ -19,19 +23,9 @@ function Registor() {
   const [addressInput, setAddressInput] = React.useState("");
   const [image, setImage] = React.useState();
   const [imagelicense, setImageLicense] = React.useState();
+  const [val, setVal] = useState(ThailandAddressValue.empty());
+  const [subDistrict, setSubDistrict] = React.useState("");
 
-  const provinceItem = [
-    { value: "Bangna", name: "Bangna" },
-    { value: "Bansue", name: "Bangna" },
-  ];
-  const districtItem = [
-    { value: "Bangkok", name: "Bangkok" },
-    { value: "Bangkok", name: "Bangkok" },
-  ];
-  const postItem = [
-    { value: "10800", name: "10800" },
-    { value: "11800", name: "11800" },
-  ];
   const sentAPI = async () => {
     if (
       !marketnameInput ||
@@ -40,15 +34,17 @@ function Registor() {
       !addressInput
     ) {
       setMessage("Fill is empty or Fill is Incorrect.");
+      console.log(val.province);
       setShowMessage(true);
     } else {
       const payload = new FormData();
       payload.append("name", marketnameInput);
       payload.append("phone", phonenumberInput);
       payload.append("address", addressInput);
-      payload.append("province", "Bangkok");
-      payload.append("district", "Bangkok");
-      payload.append("post", "123444");
+      payload.append("subdistrict", val.subdistrict);
+      payload.append("province", val.province);
+      payload.append("district", val.district);
+      payload.append("post", val.postalCode);
       payload.append("img", image, image.name);
       payload.append("imglicense", imagelicense, imagelicense.name);
 
@@ -66,55 +62,124 @@ function Registor() {
         showMessage={showMessage}
         setShowMessage={setShowMessage}
       />
-      <header className="App-header">
-        <h1 className="Text-Style">ลงทะเบียนตลาด</h1>
-        <Box component="form" noValidate autoComplete="off">
-          {" "}
-          <p>
-            <TextField
-              id="market_name"
-              label="Market Name"
-              value={marketnameInput}
-              onChange={(e) => setmarketnameInput(e.target.value)}
-              variant="filled"
-              sx={{ width: 300 }}
-            />
-          </p>
-          <p>
-            <TextField
-              id="market_owner"
-              label="Owner Name"
-              variant="filled"
-              value={ownernameInput}
-              onChange={(e) => setOwnernameInput(e.target.value)}
-              sx={{ width: 300 }}
-            />
-          </p>
-          <p>
-            <TextField
-              id="phone_number"
-              label="Phone Number"
-              value={phonenumberInput}
-              onChange={(e) => setPhoneNumberInput(e.target.value)}
-              variant="filled"
-              sx={{ width: 300 }}
-            />
-          </p>
-          <p>
-            <TextField
-              id="market_address"
-              label="Market Address"
-              value={addressInput}
-              onChange={(e) => setAddressInput(e.target.value)}
-              variant="filled"
-              sx={{ width: 300 }}
-            />
-          </p>
-        </Box>
-        <p>
-          <AddressSelect></AddressSelect>
-        </p>
 
+      <h1 className="Text-Style">ลงทะเบียนตลาด</h1>
+
+      <Box component="form" noValidate autoComplete="off">
+        {" "}
+        <p>
+          <TextField
+            size="small"
+            id="market_name"
+            label="Market Name"
+            value={marketnameInput}
+            onChange={(e) => setmarketnameInput(e.target.value)}
+            variant="outlined"
+            sx={{ width: 300 }}
+          />
+        </p>
+        <p>
+          <TextField
+            size="small"
+            id="market_owner"
+            label="Owner Name"
+            variant="outlined"
+            value={ownernameInput}
+            onChange={(e) => setOwnernameInput(e.target.value)}
+            sx={{ width: 300 }}
+          />
+        </p>
+        <p>
+          <TextField
+            size="small"
+            id="phone_number"
+            label="Phone Number"
+            value={phonenumberInput}
+            onChange={(e) => setPhoneNumberInput(e.target.value)}
+            vvariant="outlined"
+            sx={{ width: 300 }}
+          />
+        </p>
+        <p>
+          <TextField
+            size="small"
+            id="market_address"
+            label="Market Address"
+            value={addressInput}
+            onChange={(e) => setAddressInput(e.target.value)}
+            variant="outlined"
+            sx={{ width: 300 }}
+          />
+        </p>
+      </Box>
+      <p>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            flexDirection: "column",
+          }}
+        >
+          {" "}
+          <ThailandAddressTypeahead
+            value={val}
+            onValueChange={(val) => setVal(val)}
+          >
+            <ThailandAddressTypeahead.SubdistrictInput
+              style={{
+                borderRadius: 5,
+                marginBottom: 10,
+                fontSize: 24,
+                border: "1px solid grey",
+              }}
+              placeholder="Subdistrict"
+            />
+            <ThailandAddressTypeahead.DistrictInput
+              style={{
+                borderRadius: 5,
+                marginBottom: 10,
+                fontSize: 24,
+                border: "1px solid grey",
+              }}
+              placeholder="District"
+            />
+            <ThailandAddressTypeahead.ProvinceInput
+              style={{
+                borderRadius: 5,
+                marginBottom: 10,
+                fontSize: 24,
+                border: "1px solid grey",
+              }}
+              placeholder="Province"
+            />
+            <ThailandAddressTypeahead.PostalCodeInput
+              style={{
+                borderRadius: 5,
+                marginBottom: 10,
+                fontSize: 24,
+                border: "1px solid grey",
+              }}
+              placeholder="Postal Code"
+            />
+
+            <ThailandAddressTypeahead.Suggestion
+              containerProps={{
+                style: { border: "1px solid black" },
+              }}
+              optionItemProps={{ style: { fontSize: 16, cursor: "pointer" } }}
+            />
+          </ThailandAddressTypeahead>
+        </Box>
+      </p>
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          flexDirection: "column",
+        }}
+      >
         <p
           style={{
             fontSize: "12px",
@@ -134,20 +199,19 @@ function Registor() {
           <h2>อัพโหลดรูปใบอนุญาตตลาด</h2>
           <Upload setFormData={setImageLicense}></Upload>
         </p>
-
-        <p>
-          <Button
-            variant="contained"
-            style={{
-              backgroundColor: "#ffc422",
-              fontSize: "18px",
-            }}
-            onClick={sentAPI}
-          >
-            Next
-          </Button>
-        </p>
-      </header>
+      </Box>
+      <p>
+        <Button
+          variant="contained"
+          style={{
+            backgroundColor: "#ffc422",
+            fontSize: "18px",
+          }}
+          onClick={sentAPI}
+        >
+          Next
+        </Button>
+      </p>
     </div>
   );
 }

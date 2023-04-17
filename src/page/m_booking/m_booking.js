@@ -1,14 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "../App.css";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
-import Rating from "@mui/material/Rating";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
-import Tabbar from "../componenet/Tabbar_Market";
 import Button from "@mui/material/Button";
-import { getSelectedMarket } from "../public_market_profile/public_marketprofile-service";
 import { selectUserReducer } from "../../redux/user/selector";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
@@ -18,17 +15,15 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
-import Timepicker from "../componenet/Time_Market";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import Stack from "@mui/material/Stack";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { getStallAll, getSubStall, postRentStall } from "./m_booking-service";
-import Alert from "../componenet/Alert/Alert1997";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
 
-import Endcard from "../componenet/Accountyttestexpcard";
 function MProfile() {
   const navigate = useNavigate();
   const { state } = useLocation();
@@ -48,6 +43,9 @@ function MProfile() {
   const [isNumberDisabled, setIsNumberDisabled] = React.useState(true);
   const [message, setMessage] = React.useState("");
   const [showMessage, setShowMessage] = React.useState(false);
+  const AlertA = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
 
   const handleChangeZone = (event) => {
     setZoneSetImg(event.target.value.img);
@@ -86,7 +84,8 @@ function MProfile() {
   const sendApiRent = () => {
     const marketId = marketDetail.market._id;
     if (!number || !start || !payment) {
-      console.log("fill is empty");
+      setMessage("Fill is Empty");
+      setOpen(true);
     } else {
       const payload = {
         zoneId: selectedZone._id,
@@ -100,7 +99,8 @@ function MProfile() {
         } else {
           console.log(res.response.data.message);
           setMessage(res.response.data.message);
-          setShowMessage(true);
+
+          setOpen(true);
         }
       });
     }
@@ -146,15 +146,34 @@ function MProfile() {
       });
     }
   }, [selectedZone, start]);
+  const [open, setOpen] = React.useState(false);
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
 
   return (
     <div className="App">
-      <Alert
-        message={message}
-        showMessage={showMessage}
-        setShowMessage={setShowMessage}
-      />
-
+      <Stack spacing={2} sx={{ width: "100%" }}>
+        <Snackbar
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          open={open}
+          autoHideDuration={6000}
+          onClose={handleClose}
+        >
+          <AlertA onClose={handleClose} severity="error" sx={{ width: "100%" }}>
+            {message}
+          </AlertA>
+        </Snackbar>
+      </Stack>
       <React.Fragment>
         <CssBaseline />
         <Container maxWidth="sm">
