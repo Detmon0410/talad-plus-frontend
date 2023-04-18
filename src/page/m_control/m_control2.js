@@ -5,8 +5,6 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Upload from "../componenet/ImageUp_MarketR";
-import DateSet from "../componenet/DaySelectedCheckbox";
-import ZoneSet from "../componenet/TextMarketZone";
 import TextField from "@mui/material/TextField";
 import TableWaiting from "../componenet/Table_booking";
 import React, { useEffect } from "react";
@@ -22,7 +20,12 @@ import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import InputAdornment from "@mui/material/InputAdornment";
 import TypeSelect from "../componenet/Selector_role";
-
+import {
+  getStallAll,
+  getSubStall,
+  postRentStall,
+} from "../m_booking/m_booking-service";
+import { useLocation } from "react-router-dom";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -59,12 +62,14 @@ function a11yProps(index) {
 export default function BasicTabs() {
   const [message, setMessage] = React.useState("");
   const [showMessage, setShowMessage] = React.useState(false);
-  const [value, setValue] = React.useState(0);
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
 
+  const [value, setValue] = React.useState(0);
+  const { state } = useLocation();
+
+  const [stallmarket, setStallMarket] = React.useState(state);
   const userSelector = useSelector(selectUserReducer);
+  const allstall = stallmarket.stall;
+  const market = stallmarket.market;
   const [marketDetail, setMarketDetail] = React.useState([]);
   const [createStall, setCreateStall] = React.useState([]);
   const [aboutMarket, setAboutMarket] = React.useState("");
@@ -78,15 +83,18 @@ export default function BasicTabs() {
     opendate: [],
   });
   const [markettype, setMarketType] = React.useState();
-
+  const [dateSelect, setDateSelect] = React.useState(null);
   const items = [
     { value: "Month", name: "รายเดือน" },
     { value: "Day", name: "รายวัน" },
   ];
-
+  ///////////////////////////// TAB 1 ///////////////////////////////////////////////////
   useEffect(() => {
     console.log(date);
   }, [date]);
+  const handleChangeTab = (event, newValue) => {
+    setValue(newValue);
+  };
 
   const handleChangeBox = (e) => {
     // Destructuring
@@ -108,17 +116,12 @@ export default function BasicTabs() {
     }
   };
 
-  useEffect(
-    () => {
-      console.log(marketDetail);
-    },
-    [marketDetail],
-    [createStall]
-  );
+  useEffect(() => {}, [marketDetail], [createStall]);
+
   useEffect(() => {
     postMyMarket(userSelector).then((res) => {
       setMarketDetail([...res]);
-      console.log(res);
+      console.log(market);
     });
   }, []);
   useEffect(() => {
@@ -127,7 +130,6 @@ export default function BasicTabs() {
       console.log(res);
     });
   }, []);
-
   const sentAPI1 = async () => {
     if (
       !marketDetail ||
@@ -156,6 +158,8 @@ export default function BasicTabs() {
       console.log(res);
     }
   };
+
+  /////////////////////////////////// Tab 2////////////////////////////////////////////////
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -186,7 +190,7 @@ export default function BasicTabs() {
       >
         <Tabs
           value={value}
-          onChange={handleChange}
+          onChange={handleChangeTab}
           aria-label="basic tabs example"
         >
           <Tab label="กำหนดพื้นที่เช่า" {...a11yProps(0)} />
@@ -369,8 +373,19 @@ export default function BasicTabs() {
         />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        รายการที่เปิดเช่า
-        <TableWaiting></TableWaiting>
+        <Typography
+          variant="h1"
+          component="h2"
+          label="BookingList"
+          style={{ fontSize: "2rem" }}
+        >
+          รายการที่เปิดเช่า
+        </Typography>
+        <p></p>
+        <Box> </Box>
+        <Box>
+          <TableWaiting stallall={allstall} market={market}></TableWaiting>
+        </Box>
       </TabPanel>
       <TabPanel value={value} index={2}>
         โปรโมชั่น

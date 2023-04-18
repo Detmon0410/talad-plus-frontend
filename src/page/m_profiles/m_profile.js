@@ -21,6 +21,7 @@ function MProfile() {
     console.log(marketDetail);
   }, [marketDetail]);
   useEffect(() => {
+    console.log(userSelector);
     postMyMarket(userSelector).then((res) => {
       setMarketDetail([...res]);
       console.log(res);

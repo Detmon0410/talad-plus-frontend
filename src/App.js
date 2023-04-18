@@ -37,6 +37,7 @@ function App() {
             img={userSelector.img}
             name={userSelector.name}
             role={userSelector.role}
+            uid={userSelector.uid}
             signOut={handleSignOut}
           ></Appbar>
         )}

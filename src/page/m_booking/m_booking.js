@@ -132,6 +132,7 @@ function MProfile() {
 
   useEffect(() => {
     setZoneSet(marketDetail.stall);
+    console.log(selectedZone);
     setSubStall();
   });
   useEffect(() => {

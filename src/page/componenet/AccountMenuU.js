@@ -13,11 +13,12 @@ import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import { NavLink } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
+import { getStallAll } from "../m_booking/m_booking-service";
 
 export default function AccountMenu(props) {
-  const { img, name, signOut, role } = props;
+  const { img, name, signOut, role, uid } = props;
   const navigate = useNavigate();
-
+  const marketId = uid;
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
@@ -32,8 +33,12 @@ export default function AccountMenu(props) {
     navigate("/MProfile");
   };
 
-  const sendApiC = () => {
-    navigate("/MControl");
+  const sendApiC = async () => {
+    const res = await getStallAll(marketId);
+    navigate("/MControl", {
+      state: res,
+    });
+    console.log(uid);
   };
   const sendApiMC = () => {
     navigate("/Profile");

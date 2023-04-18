@@ -4,6 +4,7 @@ const initialUser = {
   name: "",
   role: "",
   img: "",
+  uid: "",
   signIn: false,
 };
 
@@ -18,6 +19,7 @@ export const userStore = createSlice({
         name: action.payload.name,
         role: action.payload.role,
         img: action.payload.img,
+        uid: action.payload.uid,
         signIn: true,
       };
     },
@@ -27,6 +29,7 @@ export const userStore = createSlice({
         name: "",
         role: "",
         img: "",
+        uid: "",
         signIn: false,
       };
     },
