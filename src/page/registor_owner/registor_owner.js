@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../App.css";
+import "./registor_owner.css";
 import Alert from "../componenet/Alert/Alert1997";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
@@ -113,14 +114,7 @@ function Registor() {
         </p>
       </Box>
       <p>
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            flexDirection: "column",
-          }}
-        >
+        <div className="address-container">
           {" "}
           <ThailandAddressTypeahead
             value={val}
@@ -129,36 +123,44 @@ function Registor() {
             <ThailandAddressTypeahead.SubdistrictInput
               style={{
                 borderRadius: 5,
-                marginBottom: 10,
-                fontSize: 24,
-                border: "1px solid grey",
+                fontSize: "16px",
+                width: "272px",
+                height: "23px",
+                padding: "8.5px 14px",
+                border: "1px solid rgb(192, 192, 192)",
               }}
               placeholder="Subdistrict"
             />
             <ThailandAddressTypeahead.DistrictInput
               style={{
                 borderRadius: 5,
-                marginBottom: 10,
-                fontSize: 24,
-                border: "1px solid grey",
+                fontSize: "1rem",
+                width: "272px",
+                height: "23px",
+                padding: "8.5px 14px",
+                border: "1px solid rgb(192, 192, 192)",
               }}
               placeholder="District"
             />
             <ThailandAddressTypeahead.ProvinceInput
               style={{
                 borderRadius: 5,
-                marginBottom: 10,
-                fontSize: 24,
-                border: "1px solid grey",
+                fontSize: "1rem",
+                width: "272px",
+                height: "23px",
+                padding: "8.5px 14px",
+                border: "1px solid rgb(192, 192, 192)",
               }}
               placeholder="Province"
             />
             <ThailandAddressTypeahead.PostalCodeInput
               style={{
                 borderRadius: 5,
-                marginBottom: 10,
-                fontSize: 24,
-                border: "1px solid grey",
+                fontSize: "1rem",
+                width: "272px",
+                height: "23px",
+                padding: "8.5px 14px",
+                border: "1px solid rgb(192, 192, 192)",
               }}
               placeholder="Postal Code"
             />
@@ -170,7 +172,7 @@ function Registor() {
               optionItemProps={{ style: { fontSize: 16, cursor: "pointer" } }}
             />
           </ThailandAddressTypeahead>
-        </Box>
+        </div>
       </p>
       <Box
         sx={{

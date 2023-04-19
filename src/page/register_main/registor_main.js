@@ -140,7 +140,7 @@ function Login() {
         <p>
           <RoleSelect items={items} role={role} setRole={setRole} n={"Role"} />
         </p>
-        <p>
+        <div className="btn-container">
           <Button
             variant="contained"
             style={{
@@ -151,7 +151,7 @@ function Login() {
           >
             Next
           </Button>
-        </p>
+        </div>
       </header>
     </div>
   );

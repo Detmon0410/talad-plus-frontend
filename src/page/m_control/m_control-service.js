@@ -13,3 +13,12 @@ export async function postCreateStall(marketId, payload) {
 
   return response.data;
 }
+
+export async function postEditstatus(marketId, payloadstatus) {
+  const response = await axiosInstance.post(
+    `/manage/market/${marketId}/stall/changestatus`,
+    payloadstatus
+  );
+
+  return response.data;
+}

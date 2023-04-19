@@ -11,6 +11,8 @@ import MarketControl from "./page/m_control/m_control2";
 import MerchantRegistor from "./page/merchant_registor/registor_merchant";
 import PMarketprofile from "./page/public_market_profile/public_marketprofile";
 import BookingStall from "./page/m_booking/m_booking";
+import RegistorWallet from "./page/wallet-registor/wallet-market-registor";
+import WalletPage from "./page/wallet-market copy/wallet-market";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
 import DefualtLoader from "./page/componenet/loader/Loader";
@@ -53,6 +55,8 @@ function App() {
           <Route path="/profile" element={<UserProfile />} />
           <Route path="/home" element={<UserHomePage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/walletregister" element={<RegistorWallet />} />
+          <Route path="/walletPage" element={<WalletPage />} />
           <Route path="*" element={<LoginPage />} />
         </Routes>
       </BrowserRouter>

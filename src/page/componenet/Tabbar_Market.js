@@ -72,6 +72,7 @@ export default function BasicTabs() {
       </TabPanel>
       <TabPanel value={value} index={1}>
         รีวิวจากผู้เช่า
+        <div> </div>
       </TabPanel>
       <TabPanel value={value} index={2}>
         โปรโมชั่น

@@ -81,6 +81,7 @@ function MProfile() {
     SetAvailableNumber(subStallForRent);
     setIsNumberDisabled(false);
   };
+
   const sendApiRent = () => {
     const marketId = marketDetail.market._id;
     if (!number || !start || !payment) {

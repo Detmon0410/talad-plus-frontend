@@ -1,13 +1,15 @@
 import React, { useEffect } from "react";
 
 function ZoneSelector(props) {
-  const { zonein, setPickZone, pickZone } = props;
+  const { zonein, setPickZone, pickZone, setDisable } = props;
 
   const zones = zonein;
-
+  const disaset = false;
   const handleOptionChange = (event) => {
     const selectedZone = zones.find((zone) => zone.zone === event.target.value);
+    setDisable(disaset);
     setPickZone(selectedZone);
+    console.log(selectedZone);
   };
 
   return (

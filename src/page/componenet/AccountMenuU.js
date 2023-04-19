@@ -14,6 +14,7 @@ import Logout from "@mui/icons-material/Logout";
 import { NavLink } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import { getStallAll } from "../m_booking/m_booking-service";
+import { getmyWallet } from "../wallet-market copy/wallet-market-service";
 
 export default function AccountMenu(props) {
   const { img, name, signOut, role, uid } = props;
@@ -42,6 +43,12 @@ export default function AccountMenu(props) {
   };
   const sendApiMC = () => {
     navigate("/Profile");
+  };
+
+  const sendApiW = async () => {
+    const res = await getmyWallet();
+    navigate("/walletpage", { state: res });
+    console.log(res);
   };
 
   return (
@@ -116,6 +123,7 @@ export default function AccountMenu(props) {
           <>
             <MenuItem onClick={sendApi}>ตลาดของฉัน</MenuItem>
             <MenuItem onClick={sendApiC}>จัดการตลาด</MenuItem>
+            <MenuItem onClick={sendApiW}>กระเป๋าตังของฉัน</MenuItem>
           </>
         )}
 

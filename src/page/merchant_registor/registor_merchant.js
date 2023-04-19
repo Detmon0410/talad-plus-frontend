@@ -12,6 +12,7 @@ import {
   ThailandAddressTypeahead,
   ThailandAddressValue,
 } from "react-thailand-address-typeahead";
+import "./registor.css";
 
 function Registor() {
   const navigate = useNavigate();
@@ -91,64 +92,68 @@ function Registor() {
               sx={{ width: 300 }}
             />
           </p>
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              flexDirection: "column",
-            }}
-          >
-            {" "}
-            <ThailandAddressTypeahead
-              value={val}
-              onValueChange={(val) => setVal(val)}
-            >
-              <ThailandAddressTypeahead.SubdistrictInput
-                style={{
-                  borderRadius: 5,
-                  marginBottom: 10,
-                  fontSize: 24,
-                  border: "1px solid grey",
-                }}
-                placeholder="Subdistrict"
-              />
-              <ThailandAddressTypeahead.DistrictInput
-                style={{
-                  borderRadius: 5,
-                  marginBottom: 10,
-                  fontSize: 24,
-                  border: "1px solid grey",
-                }}
-                placeholder="District"
-              />
-              <ThailandAddressTypeahead.ProvinceInput
-                style={{
-                  borderRadius: 5,
-                  marginBottom: 10,
-                  fontSize: 24,
-                  border: "1px solid grey",
-                }}
-                placeholder="Province"
-              />
-              <ThailandAddressTypeahead.PostalCodeInput
-                style={{
-                  borderRadius: 5,
-                  marginBottom: 10,
-                  fontSize: 24,
-                  border: "1px solid grey",
-                }}
-                placeholder="Postal Code"
-              />
+          <p>
+            <div className="address-container">
+              <ThailandAddressTypeahead
+                value={val}
+                onValueChange={(val) => setVal(val)}
+              >
+                <ThailandAddressTypeahead.SubdistrictInput
+                  style={{
+                    borderRadius: 5,
+                    fontSize: "16px",
+                    width: "272px",
+                    height: "23px",
+                    padding: "8.5px 14px",
+                    border: "1px solid rgb(192, 192, 192)",
+                  }}
+                  placeholder="Subdistrict"
+                />
+                <ThailandAddressTypeahead.DistrictInput
+                  style={{
+                    borderRadius: 5,
+                    fontSize: "1rem",
+                    width: "272px",
+                    height: "23px",
+                    padding: "8.5px 14px",
+                    border: "1px solid rgb(192, 192, 192)",
+                  }}
+                  placeholder="District"
+                />
+                <ThailandAddressTypeahead.ProvinceInput
+                  style={{
+                    borderRadius: 5,
+                    fontSize: "1rem",
+                    width: "272px",
+                    height: "23px",
+                    padding: "8.5px 14px",
+                    border: "1px solid rgb(192, 192, 192)",
+                  }}
+                  placeholder="Province"
+                />
+                <ThailandAddressTypeahead.PostalCodeInput
+                  style={{
+                    borderRadius: 5,
+                    fontSize: "1rem",
+                    width: "272px",
+                    height: "23px",
+                    padding: "8.5px 14px",
+                    border: "1px solid rgb(192, 192, 192)",
+                  }}
+                  placeholder="Postal Code"
+                />
 
-              <ThailandAddressTypeahead.Suggestion
-                containerProps={{
-                  style: { border: "1px solid black" },
-                }}
-                optionItemProps={{ style: { fontSize: 16, cursor: "pointer" } }}
-              />
-            </ThailandAddressTypeahead>
-          </Box>
+                <ThailandAddressTypeahead.Suggestion
+                  containerProps={{
+                    style: { border: "1px solid black" },
+                  }}
+                  optionItemProps={{
+                    style: { fontSize: 16, cursor: "pointer" },
+                  }}
+                />
+              </ThailandAddressTypeahead>
+            </div>
+          </p>
           <p>
             <h4 className="Text-Style-seconds">อัพโหลดรูปโปรไฟล์</h4>
             <Upload
