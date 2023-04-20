@@ -15,6 +15,7 @@ import { NavLink } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import { getStallAll } from "../m_booking/m_booking-service";
 import { getmyWallet } from "../wallet-market copy/wallet-market-service";
+import { getBookedStall } from "../bookinglist/bookinglist-service";
 
 export default function AccountMenu(props) {
   const { img, name, signOut, role, uid } = props;
@@ -51,6 +52,11 @@ export default function AccountMenu(props) {
     console.log(res);
   };
 
+  const sendApiBL = async () => {
+    const res = await getBookedStall();
+    navigate("/mybookinglist", { state: res });
+    console.log(res);
+  };
   return (
     <React.Fragment>
       <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>
@@ -117,7 +123,7 @@ export default function AccountMenu(props) {
         {role !== "Market" ? (
           <>
             <MenuItem onClick={sendApiMC}>โปรไฟล์ของฉัน</MenuItem>
-            <MenuItem onClick={handleClose}>ตลาดที่จองไว้</MenuItem>
+            <MenuItem onClick={sendApiBL}>ตลาดที่จองไว้</MenuItem>
           </>
         ) : (
           <>

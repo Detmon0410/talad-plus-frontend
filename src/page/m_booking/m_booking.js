@@ -94,13 +94,17 @@ function MProfile() {
         date: start,
         payment: payment,
       };
+      if (payment == "visa") {
+        console.log("visa");
+      } else {
+        console.log("clash");
+      }
       postRentStall(payload, marketId).then((res) => {
         if (res.status === 200) {
           // nav to สรุป
         } else {
           console.log(res.response.data.message);
           setMessage(res.response.data.message);
-
           setOpen(true);
         }
       });
@@ -351,6 +355,7 @@ function MProfile() {
                       ))}
                     </Select>
                   </FormControl>
+                  <p></p>
                 </Box>
                 <Typography
                   variant="h3"
@@ -379,10 +384,20 @@ function MProfile() {
                       onChange={handleChangePayment}
                     >
                       <MenuItem value="cash">เงินสด</MenuItem>
-                      <MenuItem value="visa">บัดร เดบิต/เครดิต</MenuItem>
+                      <MenuItem value="visa">ชำระผ่าแอพ</MenuItem>
                     </Select>
                   </FormControl>
                 </Box>
+                <p></p>
+                <Typography
+                  variant="h3"
+                  component="h3"
+                  sx={{}}
+                  label={marketDetail.province}
+                  style={{ fontSize: "1.2rem" }}
+                >
+                  ราคาค่าเช่าแผง {selectedZone.price} ฿.-
+                </Typography>
 
                 <p></p>
               </p>

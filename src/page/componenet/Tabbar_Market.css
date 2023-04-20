@@ -1,0 +1,14 @@
+.reviewbox-container{
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+  border-radius: 2px;
+  background-color: #fff;  
+  padding: -1 12px;  
+  font-size: 18px;
+}
+.starbutton{
+  display: flex;
+    align-items: center;
+    gap: 10px;
+}

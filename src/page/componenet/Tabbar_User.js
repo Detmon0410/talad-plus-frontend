@@ -6,7 +6,6 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
 import ReviewCard from "./CardReview_User";
-import RecentCard from "./CardRecentMarket";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -80,7 +79,6 @@ export default function BasicTabs() {
       </TabPanel>
       <TabPanel value={value} index={1}>
         ตลาดที่ถูกใจ
-        <RecentCard></RecentCard>
       </TabPanel>
     </Box>
   );

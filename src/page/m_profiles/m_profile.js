@@ -89,7 +89,7 @@ function MProfile() {
             sx={{ width: "100%" }}
             disabled
           />
-          <Tabbar></Tabbar>
+          <Tabbar marketdetail={marketDetail}></Tabbar>
         </Container>
       </React.Fragment>
     </div>

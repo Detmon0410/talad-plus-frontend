@@ -8,3 +8,12 @@ export async function getSelectedMarket(request, marketId) {
   );
   return response.data;
 }
+export async function postCreateReview(payload) {
+  const response = await axiosInstance.post("/market/review", payload);
+  return response.data;
+}
+
+export async function getReview(marketId) {
+  const response = await axiosInstance.get(`/market/${marketId}/review`);
+  return response.data;
+}

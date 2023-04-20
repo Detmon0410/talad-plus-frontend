@@ -21,7 +21,6 @@ export default function DataTable(props) {
       width: 150,
     },
   ];
-
   const [selectionModel, setSelectionModel] = useState([]);
   const [pickdate, setPickDate] = useState(null);
   const [availableNumber, SetAvailableNumber] = React.useState([]);
@@ -54,7 +53,6 @@ export default function DataTable(props) {
 
   const sentAPI = async () => {
     const selectedRows = rows.filter((row) => selectionModel.includes(row.id));
-
     const payloadstatus = selectedRows;
     const marketId = market._id;
     const datepick = new Date(pickdate);
@@ -98,6 +96,7 @@ export default function DataTable(props) {
     });
     setRows(newData);
   }, [availableNumber]);
+
   return (
     <div className="table-container">
       <div className="row">

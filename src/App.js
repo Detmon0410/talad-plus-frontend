@@ -13,6 +13,8 @@ import PMarketprofile from "./page/public_market_profile/public_marketprofile";
 import BookingStall from "./page/m_booking/m_booking";
 import RegistorWallet from "./page/wallet-registor/wallet-market-registor";
 import WalletPage from "./page/wallet-market copy/wallet-market";
+import BookinStallList from "./page/bookinglist/bookinglist_page";
+import Receipt from "./page/receipt-booking/receipt-booking";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
 import DefualtLoader from "./page/componenet/loader/Loader";
@@ -45,7 +47,9 @@ function App() {
         )}
 
         <Routes>
+          <Route path="/mybookinglist" element={<BookinStallList />} />
           <Route path="/registor" element={<Registor />} />
+          <Route path="/Receipt" element={<Receipt />} />
           <Route path="/MProfile" element={<MarketProfile />} />
           <Route path="/MControl" element={<MarketControl />} />
           <Route path="/Viewmarket" element={<PMarketprofile />} />

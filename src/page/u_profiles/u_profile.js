@@ -21,7 +21,7 @@ function Registor() {
   useEffect(() => {
     postMyProfile(userSelector).then((res) => {
       setUserDetail(res);
-      console.log(typeof res);
+      console.log(userDetail);
     });
   }, []);
 
