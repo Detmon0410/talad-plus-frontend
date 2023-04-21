@@ -21,10 +21,11 @@ import Stack from "@mui/material/Stack";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { getStallAll, getSubStall, postRentStall } from "./m_booking-service";
-import { getSelectedStall } from "../componenet/visapayment-page/visapayment-service";
-import Visapayment from "../componenet/visapayment-page/visapayment";
+import { getSelectedStall } from "../visapayment-page/visapayment-service";
+import Visapayment from "../visapayment-page/visapayment";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
+
 function MProfile() {
   const navigate = useNavigate();
   const { state } = useLocation();
