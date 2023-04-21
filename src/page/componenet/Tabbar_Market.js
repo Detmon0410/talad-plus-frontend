@@ -102,7 +102,7 @@ export default function BasicTabs(props) {
             <ReviewCard
               key={index}
               name={review.name}
-              rating={review.rating}
+              rating={review.star}
               review={review.description}
             />
           ))}

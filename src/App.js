@@ -15,6 +15,7 @@ import RegistorWallet from "./page/wallet-registor/wallet-market-registor";
 import WalletPage from "./page/wallet-market copy/wallet-market";
 import BookinStallList from "./page/bookinglist/bookinglist_page";
 import Receipt from "./page/receipt-booking/receipt-booking";
+
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
 import DefualtLoader from "./page/componenet/loader/Loader";
@@ -23,6 +24,7 @@ import Appbar from "./page/componenet/AppbarUser";
 import { selectUserReducer } from "./redux/user/selector";
 import { signOut } from "./redux/user/actions";
 import { useNavigate, Routes, Route, BrowserRouter } from "react-router-dom";
+import AdminMain from "./page/admin-page/admin_main";
 
 function App() {
   const userSelector = useSelector(selectUserReducer);
@@ -53,14 +55,19 @@ function App() {
           <Route path="/MProfile" element={<MarketProfile />} />
           <Route path="/MControl" element={<MarketControl />} />
           <Route path="/Viewmarket" element={<PMarketprofile />} />
+
           <Route path="/marketregistor" element={<MarketRegistor />} />
           <Route path="/merchantregistor" element={<MerchantRegistor />} />
           <Route path="/bookingstall" element={<BookingStall />} />
           <Route path="/profile" element={<UserProfile />} />
           <Route path="/home" element={<UserHomePage />} />
-          <Route path="/login" element={<LoginPage />} />
           <Route path="/walletregister" element={<RegistorWallet />} />
           <Route path="/walletPage" element={<WalletPage />} />
+          <Route
+            path="/asxdllkmkylix332422@co_n22323123"
+            element={<AdminMain />}
+          />
+          <Route path="/login" element={<LoginPage />} />
           <Route path="*" element={<LoginPage />} />
         </Routes>
       </BrowserRouter>

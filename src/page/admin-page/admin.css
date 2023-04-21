@@ -1,0 +1,12 @@
+.container {
+    margin-top: 10px !important; /* or padding-top: 50px !important; */
+    display: flex;
+    flex-direction: column;
+
+      
+  }
+  .button-container button {
+    margin-right: 10px;
+    margin-top: 20px;
+  }
+  

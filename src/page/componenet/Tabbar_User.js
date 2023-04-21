@@ -5,8 +5,10 @@ import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
-import ReviewCard from "./CardReview_User";
-
+import ReviewCard from "../componenet/CardmarketReview";
+import "./Tabbar_Market.css";
+import { Button } from "@mui/material";
+import { getReview } from "../public_market_profile/public_marketprofile-service";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -40,13 +42,19 @@ function a11yProps(index) {
   };
 }
 
-export default function BasicTabs() {
+export default function BasicTabs(props) {
+  const { marketdetail } = props;
   const [value, setValue] = React.useState(0);
+  const [rating, setRating] = React.useState(2);
+  const [ReviewList, setReviewList] = React.useState([]);
 
   const handleChange = (event, newValue) => {
+    getReview(marketdetail._id).then((res) => {
+      setReviewList(res);
+      console.log(res);
+    });
     setValue(newValue);
   };
-
   return (
     <Box sx={{ width: "100%" }}>
       <Box
@@ -69,13 +77,14 @@ export default function BasicTabs() {
 
       <TabPanel value={value} index={0}>
         รีวิวจากเจ้าของตลาด
-        <ReviewCard
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        ></ReviewCard>
+        {ReviewList.map((review, index) => (
+          <ReviewCard
+            key={index}
+            name={review.name}
+            rating={review.star}
+            review={review.description}
+          ></ReviewCard>
+        ))}
       </TabPanel>
       <TabPanel value={value} index={1}>
         ตลาดที่ถูกใจ

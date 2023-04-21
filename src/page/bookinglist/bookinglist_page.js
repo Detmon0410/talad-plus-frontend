@@ -3,6 +3,8 @@ import Bookinglist from "./bookingcard";
 import Typography from "@mui/material/Typography";
 import { useLocation } from "react-router-dom";
 import { Button } from "@mui/material";
+import RefreshIcon from "@mui/icons-material/Refresh";
+import "./bookingcards.css";
 export default function SimpleAccordion() {
   const { state } = useLocation();
   const [stalllist, setStalllist] = React.useState(state);
@@ -12,24 +14,34 @@ export default function SimpleAccordion() {
   };
   return (
     <div>
-      <Typography>My Booking Stall List</Typography>
-      <Button
-        variant="contained"
-        style={{
-          backgroundColor: "#33cc33",
-          fontSize: "18px",
-        }}
-        onClick={handleCloseHistory}
-      ></Button>
-      {stalllist.map((booking) => (
-        <Bookinglist
-          name={booking._id}
-          start={booking.dateStart}
-          end={booking.dateEnd}
-          status={booking.status}
-          number={booking.number}
-        ></Bookinglist>
-      ))}
+      <div className="history-header">
+        <Typography sx={{ fontSize: "25px" }}>My Booking Stall List</Typography>
+        <Button
+          className="refresh-btn"
+          variant="contained"
+          style={{
+            backgroundColor: "#33cc33",
+            fontSize: "17px",
+          }}
+          onClick={handleCloseHistory}
+        >
+          refresh
+          <RefreshIcon sx={{ width: "30px", height: "30px" }} />
+        </Button>
+      </div>
+      <div className="booking-container">
+        {stalllist.reverse().map((booking) => (
+          <Bookinglist
+            stallId={booking._id}
+            zone={booking.zone}
+            name={booking.market_name}
+            start={booking.dateStart}
+            end={booking.dateEnd}
+            status={booking.status}
+            number={booking.number}
+          ></Bookinglist>
+        ))}
+      </div>
     </div>
   );
 }

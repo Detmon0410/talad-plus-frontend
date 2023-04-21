@@ -22,3 +22,19 @@ export async function postEditstatus(marketId, payloadstatus) {
 
   return response.data;
 }
+
+export async function postReject(marketId, payloadstatus) {
+  const response = await axiosInstance.delete(
+    `/manage/market/${marketId}/stall/reject`,
+    payloadstatus
+  );
+
+  return response.data;
+}
+
+export async function postReport(payload) {
+  console.log(payload);
+  const response = await axiosInstance.post(`/profile/report`, payload);
+
+  return response.data;
+}

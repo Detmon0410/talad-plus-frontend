@@ -11,22 +11,16 @@ import Tabbar from "../componenet/Tabbar_Market";
 import Button from "@mui/material/Button";
 import { postMyMarket } from "./m_profile-service";
 import { selectUserReducer } from "../../redux/user/selector";
+import { getSelectedMarket } from "../public_market_profile/public_marketprofile-service";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 function MProfile() {
+  const { state, statereview } = useLocation();
   const userSelector = useSelector(selectUserReducer);
-  const [marketDetail, setMarketDetail] = React.useState([]);
-
-  useEffect(() => {
-    console.log(marketDetail);
-  }, [marketDetail]);
-  useEffect(() => {
-    console.log(userSelector);
-    postMyMarket(userSelector).then((res) => {
-      setMarketDetail([...res]);
-      console.log(res);
-    });
-  }, []);
+  const [marketDetail, setMarketDetail] = React.useState(state);
+  const navigate = useNavigate();
 
   return (
     <div className="App">

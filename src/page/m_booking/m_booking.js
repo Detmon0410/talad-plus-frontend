@@ -21,6 +21,8 @@ import Stack from "@mui/material/Stack";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { getStallAll, getSubStall, postRentStall } from "./m_booking-service";
+import { getSelectedStall } from "../visapayment-page/visapayment-service";
+import Visapayment from "../visapayment-page/visapayment";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 
@@ -43,6 +45,13 @@ function MProfile() {
   const [isNumberDisabled, setIsNumberDisabled] = React.useState(true);
   const [message, setMessage] = React.useState("");
   const [showMessage, setShowMessage] = React.useState(false);
+  const [openModal, setOpenModal] = React.useState(false);
+  const [holdername, setCardName] = React.useState("");
+  const [cardnumber, setCardnum] = React.useState("");
+  const [exp_year, setexp_year] = React.useState("");
+  const [exp_month, setexp_month] = React.useState("");
+  const [cvc, setccvin] = React.useState("");
+
   const AlertA = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
   });
@@ -82,7 +91,7 @@ function MProfile() {
     setIsNumberDisabled(false);
   };
 
-  const sendApiRent = () => {
+  const sendApiRent = async () => {
     const marketId = marketDetail.market._id;
     if (!number || !start || !payment) {
       setMessage("Fill is Empty");
@@ -95,22 +104,61 @@ function MProfile() {
         payment: payment,
       };
       if (payment == "visa") {
-        console.log("visa");
+        setOpenModal(true);
       } else {
-        console.log("clash");
-      }
-      postRentStall(payload, marketId).then((res) => {
+        const res = await postRentStall(payload, marketId);
         if (res.status === 200) {
-          // nav to สรุป
+          const stall = await getSelectedStall(res.data.Receipt);
+          navigate("/Receipt", {
+            state: stall,
+          });
         } else {
           console.log(res.response.data.message);
           setMessage(res.response.data.message);
           setOpen(true);
         }
-      });
+      }
     }
   };
-
+  const sendApiV = async () => {
+    const marketId = marketDetail.market._id;
+    if (!number || !start || !payment) {
+      setMessage("Fill is Empty");
+      setOpen(true);
+    } else {
+      const payload = {
+        zoneId: selectedZone._id,
+        number: number,
+        date: start,
+        payment: payment,
+        holdername: holdername,
+        cardnumber: cardnumber,
+        exp_year: exp_year,
+        exp_month: exp_month,
+        cvc: cvc,
+      };
+      const res = await postRentStall(payload, marketId);
+      if (res.status === 200) {
+        const stall = await getSelectedStall(res.data.Receipt);
+        navigate("/Receipt", {
+          state: stall,
+        });
+      } else {
+        console.log(res.response.data.message);
+        setMessage(res.response.data.message);
+        setOpen(true);
+      }
+      // postRentStall(payload, marketId).then((res) => {
+      //   console.log(res.data.Receipt);
+      //   if (res.status === 200) {
+      //   } else {
+      //     console.log(res.response.data.message);
+      //     setMessage(res.response.data.message);
+      //     setOpen(true);
+      //   }
+      // });
+    }
+  };
   const mappingZone = (input) => {
     console.log(input);
     const substalls = {};
@@ -168,6 +216,22 @@ function MProfile() {
 
   return (
     <div className="App">
+      <Visapayment
+        openModal={openModal}
+        setOpenModal={setOpenModal}
+        onSubmit={sendApiV}
+        price={selectedZone.price}
+        setName={setCardName}
+        setNum={setCardnum}
+        setExpM={setexp_month}
+        setExpY={setexp_year}
+        setCcvin={setccvin}
+        Name={holdername}
+        Num={cardnumber}
+        ExpM={exp_month}
+        ExpY={exp_year}
+        Ccvin={cvc}
+      />
       <Stack spacing={2} sx={{ width: "100%" }}>
         <Snackbar
           anchorOrigin={{ vertical: "top", horizontal: "center" }}
@@ -384,7 +448,7 @@ function MProfile() {
                       onChange={handleChangePayment}
                     >
                       <MenuItem value="cash">เงินสด</MenuItem>
-                      <MenuItem value="visa">ชำระผ่าแอพ</MenuItem>
+                      <MenuItem value="visa">ชำระผ่านแอพ</MenuItem>
                     </Select>
                   </FormControl>
                 </Box>

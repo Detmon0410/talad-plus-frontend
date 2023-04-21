@@ -118,7 +118,12 @@ function MProfile() {
               }}
             >
               <Typography component="legend"></Typography>
-              <Rating size="large" name="no-value" value={null} />
+              <Rating
+                size="large"
+                name="no-value"
+                value={marketDetail.totalStars}
+                readOnly
+              />
             </Box>
           </p>
           <TextField
@@ -126,24 +131,28 @@ function MProfile() {
             label="About"
             multiline
             rows={4}
-            defaultValue="Infomation About Market"
+            defaultValue="ตลาดนัดเปิดใหม่ ติดถนนลาดจอดรถกว้าง พื้นที่กว้าง ห้องน้ำสะอาเ"
             sx={{ width: "100%" }}
             disabled
           />
           <p></p>
-          <Box>
-            <Button
-              variant="contained"
-              style={{
-                backgroundColor: "#33cc33",
-                fontSize: "18px",
-              }}
-              onClick={handleClick}
-            >
-              จองพื้นที่ขายของ
-              <p></p>
-            </Button>
-          </Box>
+          {userSelector.role !== "Market" ? (
+            <Box>
+              <Button
+                variant="contained"
+                style={{
+                  backgroundColor: "#33cc33",
+                  fontSize: "18px",
+                }}
+                onClick={handleClick}
+              >
+                จองพื้นที่ขายของ
+                <p></p>
+              </Button>
+            </Box>
+          ) : (
+            <Box></Box>
+          )}
           <p></p>
 
           <div
@@ -151,42 +160,53 @@ function MProfile() {
             style={{ display: "flex", alignItems: "center" }}
           >
             {" "}
-            <TextField
-              id="review"
-              label="แสดงความคิดเห็น"
-              variant="outlined"
-              multiline
-              maxRows={4}
-              style={{
-                fontSize: 14,
-                width: "300px",
-                marginLeft: "20px",
-              }}
-              value={reviewValue}
-              onChange={(event) => setReviewValue(event.target.value)}
-            />
-            <div classname="starbutton">
-              <Rating
-                name="simple-controlled"
-                value={rating}
-                onChange={(event, newValue) => {
-                  console.log(newValue);
-                  setRating(newValue);
-                }}
-              />
-
-              <Button
-                variant="contained"
+            {userSelector.role !== "Market" ? (
+              <TextField
+                id="review"
+                label="แสดงความคิดเห็น"
+                variant="outlined"
+                multiline
+                maxRows={4}
                 style={{
                   fontSize: 14,
-                  height: "45px",
-                  width: "90px",
+                  width: "300px",
                   marginLeft: "20px",
                 }}
-                onClick={sendApiReview}
-              >
-                เขียนรีวิว
-              </Button>
+                value={reviewValue}
+                onChange={(event) => setReviewValue(event.target.value)}
+              />
+            ) : (
+              <Box></Box>
+            )}
+            <div classname="starbutton">
+              {userSelector.role !== "Market" ? (
+                <Rating
+                  name="simple-controlled"
+                  value={rating}
+                  onChange={(event, newValue) => {
+                    console.log(newValue);
+                    setRating(newValue);
+                  }}
+                />
+              ) : (
+                <Box></Box>
+              )}
+              {userSelector.role !== "Market" ? (
+                <Button
+                  variant="contained"
+                  style={{
+                    fontSize: 14,
+                    height: "45px",
+                    width: "90px",
+                    marginLeft: "20px",
+                  }}
+                  onClick={sendApiReview}
+                >
+                  เขียนรีวิว
+                </Button>
+              ) : (
+                <Box></Box>
+              )}
             </div>
           </div>
 

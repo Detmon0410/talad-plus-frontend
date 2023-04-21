@@ -54,118 +54,119 @@ function Registor() {
         showMessage={showMessage}
         setShowMessage={setShowMessage}
       />
-      <header className="App-header">
-        <h1 className="Text-Style">ลงทะเบียนพ่อค้าแม่ค้า</h1>
 
-        <Box component="form" noValidate autoComplete="off">
-          {" "}
-          <p>
-            <TextField
-              id="mName"
-              label="Name&SurName "
-              size="small"
-              value={mnameInput}
-              onChange={(e) => setmnameInput(e.target.value)}
-              variant="outlined"
-              sx={{ width: 300 }}
-            />
-          </p>
-          <p>
-            <TextField
-              id="phoneNumber"
-              label="PhoneNumber"
-              size="small"
-              value={phonenumberInput}
-              onChange={(e) => setPhonenumberInput(e.target.value)}
-              variant="outlined"
-              sx={{ width: 300 }}
-            />
-          </p>
-          <p>
-            <TextField
-              size="small"
-              id="market_address"
-              label="Address"
-              value={addressInput}
-              onChange={(e) => setAddressInput(e.target.value)}
-              variant="outlined"
-              sx={{ width: 300 }}
-            />
-          </p>
-          <p>
-            <div className="address-container">
-              <ThailandAddressTypeahead
-                value={val}
-                onValueChange={(val) => setVal(val)}
-              >
-                <ThailandAddressTypeahead.SubdistrictInput
-                  style={{
-                    borderRadius: 5,
-                    fontSize: "16px",
-                    width: "272px",
-                    height: "23px",
-                    padding: "8.5px 14px",
-                    border: "1px solid rgb(192, 192, 192)",
-                  }}
-                  placeholder="Subdistrict"
-                />
-                <ThailandAddressTypeahead.DistrictInput
-                  style={{
-                    borderRadius: 5,
-                    fontSize: "1rem",
-                    width: "272px",
-                    height: "23px",
-                    padding: "8.5px 14px",
-                    border: "1px solid rgb(192, 192, 192)",
-                  }}
-                  placeholder="District"
-                />
-                <ThailandAddressTypeahead.ProvinceInput
-                  style={{
-                    borderRadius: 5,
-                    fontSize: "1rem",
-                    width: "272px",
-                    height: "23px",
-                    padding: "8.5px 14px",
-                    border: "1px solid rgb(192, 192, 192)",
-                  }}
-                  placeholder="Province"
-                />
-                <ThailandAddressTypeahead.PostalCodeInput
-                  style={{
-                    borderRadius: 5,
-                    fontSize: "1rem",
-                    width: "272px",
-                    height: "23px",
-                    padding: "8.5px 14px",
-                    border: "1px solid rgb(192, 192, 192)",
-                  }}
-                  placeholder="Postal Code"
-                />
+      <h1 className="Text-Style">ลงทะเบียนพ่อค้าแม่ค้า</h1>
 
-                <ThailandAddressTypeahead.Suggestion
-                  containerProps={{
-                    style: { border: "1px solid black" },
-                  }}
-                  optionItemProps={{
-                    style: { fontSize: 16, cursor: "pointer" },
-                  }}
-                />
-              </ThailandAddressTypeahead>
-            </div>
-          </p>
-          <p>
-            <h4 className="Text-Style-seconds">อัพโหลดรูปโปรไฟล์</h4>
-            <Upload
-              setFormData={(e) => {
-                setImage(e);
-              }}
-            ></Upload>
-          </p>
-        </Box>
-        <p></p>
-
+      <Box component="form" noValidate autoComplete="off">
+        {" "}
         <p>
+          <TextField
+            id="mName"
+            label="Name&SurName "
+            size="small"
+            value={mnameInput}
+            onChange={(e) => setmnameInput(e.target.value)}
+            variant="outlined"
+            sx={{ width: 300 }}
+          />
+        </p>
+        <p>
+          <TextField
+            id="phoneNumber"
+            label="PhoneNumber"
+            size="small"
+            value={phonenumberInput}
+            onChange={(e) => setPhonenumberInput(e.target.value)}
+            variant="outlined"
+            sx={{ width: 300 }}
+          />
+        </p>
+        <p>
+          <TextField
+            size="small"
+            id="market_address"
+            label="Address"
+            value={addressInput}
+            onChange={(e) => setAddressInput(e.target.value)}
+            variant="outlined"
+            sx={{ width: 300 }}
+          />
+        </p>
+      </Box>
+      <p>
+        <div className="address-container">
+          <ThailandAddressTypeahead
+            value={val}
+            onValueChange={(val) => setVal(val)}
+          >
+            <ThailandAddressTypeahead.SubdistrictInput
+              style={{
+                borderRadius: 5,
+                fontSize: "16px",
+                width: "272px",
+                height: "23px",
+                padding: "8.5px 14px",
+                border: "1px solid rgb(192, 192, 192)",
+              }}
+              placeholder="Subdistrict"
+            />
+            <ThailandAddressTypeahead.DistrictInput
+              style={{
+                borderRadius: 5,
+                fontSize: "1rem",
+                width: "272px",
+                height: "23px",
+                padding: "8.5px 14px",
+                border: "1px solid rgb(192, 192, 192)",
+              }}
+              placeholder="District"
+            />
+            <ThailandAddressTypeahead.ProvinceInput
+              style={{
+                borderRadius: 5,
+                fontSize: "1rem",
+                width: "272px",
+                height: "23px",
+                padding: "8.5px 14px",
+                border: "1px solid rgb(192, 192, 192)",
+              }}
+              placeholder="Province"
+            />
+            <ThailandAddressTypeahead.PostalCodeInput
+              style={{
+                borderRadius: 5,
+                fontSize: "1rem",
+                width: "272px",
+                height: "23px",
+                padding: "8.5px 14px",
+                border: "1px solid rgb(192, 192, 192)",
+              }}
+              placeholder="Postal Code"
+            />
+            <ThailandAddressTypeahead.Suggestion
+              containerProps={{
+                style: { border: "1px solid black" },
+              }}
+              optionItemProps={{
+                style: { fontSize: 16, cursor: "pointer" },
+              }}
+            />
+          </ThailandAddressTypeahead>
+        </div>
+      </p>
+      <p>
+        <h4 className="Text-Style-seconds">อัพโหลดรูปโปรไฟล์</h4>
+        <Upload
+          setFormData={(e) => {
+            setImage(e);
+          }}
+        ></Upload>
+      </p>
+
+      <p></p>
+
+      <p>
+        <Box component="form" noValidate autoComplete="off">
           <Button
             variant="contained"
             style={{
@@ -176,8 +177,8 @@ function Registor() {
           >
             Submit
           </Button>
-        </p>
-      </header>
+        </Box>
+      </p>
     </div>
   );
 }

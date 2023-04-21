@@ -8,6 +8,7 @@ import { isEmail } from "validator";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import "../App.css";
+import "../registor_owner/registor_owner.css";
 
 function Login() {
   const navigate = useNavigate();
@@ -60,13 +61,19 @@ function Login() {
         role: role,
       };
       const res = await postRegister(payload);
-      if (role == "Market") {
-        navigate("/marketregistor");
+      if (res.status >= 403) {
+        // Request failed, retry the request
+        setMessage("username or email is duplicate");
+        setShowMessage(true);
       } else {
-        navigate("/merchantregistor");
+        // Request succeeded, navigate to the appropriate page
+        if (role == "Market") {
+          navigate("/marketregistor");
+        } else {
+          navigate("/merchantregistor");
+        }
+        console.log(res);
       }
-
-      console.log(res);
     }
   };
   return (

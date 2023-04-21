@@ -5,9 +5,20 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { getSelectedStall } from "./bookinglist-service";
 
 export default function SimpleAccordion(props) {
-  const { name, start, number, end, status } = props;
+  const navigate = useNavigate();
+  const { name, start, number, end, status, zone, stallId } = props;
+  const sentAPI = async () => {
+    const res = await getSelectedStall(stallId);
+    navigate("/Receipt", {
+      state: res,
+    });
+    console.log(res);
+  };
+
   return (
     <div>
       <Accordion>
@@ -16,13 +27,22 @@ export default function SimpleAccordion(props) {
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
-          <Typography>{name}</Typography>
+          <Typography>
+            {name} Status : {status}
+          </Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>{number}</Typography>
-          <Typography>start renting : {start}</Typography>
-          <Typography>renting end :{end}</Typography>
-          <Button>ใบเสร็จ</Button>
+          <Typography>
+            {" "}
+            Zone:{zone},Number:{number}
+          </Typography>
+          <Typography>
+            start renting : {new Date(start).toLocaleDateString()}
+          </Typography>
+          <Typography>
+            renting end : {new Date(end).toLocaleDateString()}
+          </Typography>
+          <Button onClick={sentAPI}>ใบเสร็จ</Button>
         </AccordionDetails>
       </Accordion>
     </div>

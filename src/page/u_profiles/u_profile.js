@@ -80,7 +80,7 @@ function Registor() {
             sx={{ width: "100%" }}
             disabled
           />
-          <Tabbar></Tabbar>
+          <Tabbar marketdetail={userDetail}></Tabbar>
         </Container>
       </React.Fragment>
     </div>

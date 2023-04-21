@@ -16,7 +16,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { getStallAll } from "../m_booking/m_booking-service";
 import { getmyWallet } from "../wallet-market copy/wallet-market-service";
 import { getBookedStall } from "../bookinglist/bookinglist-service";
-
+import { getSelectedMarket } from "../public_market_profile/public_marketprofile-service";
 export default function AccountMenu(props) {
   const { img, name, signOut, role, uid } = props;
   const navigate = useNavigate();
@@ -31,8 +31,14 @@ export default function AccountMenu(props) {
     setAnchorEl(null);
   };
 
-  const sendApi = () => {
-    navigate("/MProfile");
+  const sendApi = async () => {
+    const payload = {};
+    console.log(marketId);
+    const res = await getSelectedMarket(payload, marketId);
+    navigate("/Viewmarket", {
+      state: res,
+    });
+    console.log(res);
   };
 
   const sendApiC = async () => {

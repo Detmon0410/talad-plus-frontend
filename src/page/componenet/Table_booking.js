@@ -5,10 +5,13 @@ import DateField from "./DateField";
 import ZoneSelector from "./ZoneSelector";
 import Button from "@mui/material/Button";
 import { getSubStall } from "../m_booking/m_booking-service";
-import { postEditstatus } from "../m_control/m_control-service";
+import { postEditstatus, postReject } from "../m_control/m_control-service";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import Stack from "@mui/material/Stack";
+import TextField from "@mui/material/TextField";
+import Rating from "@mui/material/Rating";
+import { postReport } from "../m_control/m_control-service";
 export default function DataTable(props) {
   const { stallall, market } = props;
   const columns = [
@@ -35,10 +38,16 @@ export default function DataTable(props) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
   });
   const [message, setMessage] = React.useState("");
+  const [rating, setRating] = React.useState(2);
+  const [reviewValue, setReviewValue] = React.useState("");
 
   const handleDateChange = (date) => {
     setPickDate(date);
   };
+  useEffect(() => {
+    console.log(selectionModel);
+  }, [selectionModel]);
+
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
@@ -49,6 +58,34 @@ export default function DataTable(props) {
   const handleZoneChange = (zone) => {
     setSelectedZone(pickZone);
     setIsDateDisabled(false);
+  };
+  const sendApiReport = async () => {
+    const selectedRows = rows.filter((row) => selectionModel.includes(row.id));
+    const payloadstatus = selectedRows[0].user;
+    console.log(typeof selectedRows[0].User);
+    const payload = {
+      merchant: selectedRows[0].User,
+      description: reviewValue,
+      rating: rating,
+    };
+    const res = await postReport(payload);
+    console.log(payloadstatus);
+  };
+  const sentAPID = async () => {
+    const selectedRows = rows.filter((row) => selectionModel.includes(row.id));
+    const payloadstatus = selectedRows;
+    const marketId = payloadstatus[0].id;
+    const datepick = new Date(pickdate);
+    const payload = {
+      zoneId: pickZone._id,
+      date: datepick,
+    };
+    console.log(payloadstatus[0].id);
+    postReject(marketId, payloadstatus);
+    getSubStall(payload, marketId).then((res) => {
+      SetAvailableNumber(res);
+      console.log(res);
+    });
   };
 
   const sentAPI = async () => {
@@ -92,6 +129,7 @@ export default function DataTable(props) {
         Name: item.merchant, // Replace this with the appropriate field for the stall name
         Status: item.status,
         Payment: item.payment,
+        User: item.user,
       };
     });
     setRows(newData);
@@ -144,9 +182,55 @@ export default function DataTable(props) {
             backgroundColor: "#cc3833",
             fontSize: "18px",
           }}
+          onClick={sentAPID}
         >
           ยกเลิกการจอง
         </Button>
+      </div>
+
+      <div
+        className="reviewbox-container"
+        style={{ display: "flex", alignItems: "center" }}
+      >
+        {" "}
+        <TextField
+          id="review"
+          label="แสดงความคิดเห็น"
+          variant="outlined"
+          multiline
+          maxRows={4}
+          style={{
+            fontSize: 14,
+            width: "300px",
+            marginLeft: "20px",
+          }}
+          value={reviewValue}
+          onChange={(event) => setReviewValue(event.target.value)}
+        />
+        <div classname="starbutton">
+          <Rating
+            name="simple-controlled"
+            value={rating}
+            onChange={(event, newValue) => {
+              console.log(newValue);
+              setRating(newValue);
+            }}
+          />
+
+          <Button
+            variant="contained"
+            style={{
+              fontSize: 14,
+              height: "45px",
+              width: "90px",
+              marginLeft: "20px",
+            }}
+            color="warning"
+            onClick={sendApiReport}
+          >
+            รายงาน
+          </Button>
+        </div>
       </div>
     </div>
   );

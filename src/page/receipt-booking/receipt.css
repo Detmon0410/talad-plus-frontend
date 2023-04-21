@@ -1,24 +1,57 @@
-.paper {
-    padding: 24px;
-    border-radius: 8px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-    
-    min-height: 10vh;
-  }
+/* Add a background color to the body for contrast */
+body {
+  background-color: #f5f5f5;
+  flex-direction: column;
   
-  .total {
-    margin-top: 16px;
-    font-weight: bold;
-  }
-  
-  .main{ background-color: #ffffff;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 600;
-    font-size: calc(10px + 2vmin);
-    color: white;}
+}
 
-    .button{margin-top: 16px;}
+/* Style the paper container */
+.paper {
+  padding: 24px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);    
+  min-height: 10vh;
+  margin-top: 50px;
+  float: none;
+  margin-right: 50px;
+  margin-left: 50px; 
+  
+}
+
+
+/* Style the total section */
+.total {
+  margin-top: 16px;
+  font-weight: bold;
+  font-size: 1.2rem; /* Increase font size for emphasis */
+  color: #555; /* Use a slightly darker color for contrast */
+}
+
+/* Style the main container */
+.main {
+  background-color: #fafafa; /* Use a light background color */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: #333; /* Use a slightly darker color for contrast */
+}
+
+/* Style the button */
+.button {
+  margin-top: 16px;
+  background-color: #4caf50;
+  color: #fff;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: #388e3c;
+}
