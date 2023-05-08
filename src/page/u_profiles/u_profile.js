@@ -68,7 +68,7 @@ function Registor() {
               }}
             >
               <Typography component="legend"></Typography>
-              <Rating name="no-value" value={null} />
+              <Rating name="no-value" value={null} readOnly />
             </Box>
           </p>
           <TextField

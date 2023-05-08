@@ -51,7 +51,7 @@ function Registor() {
 
       console.log(payload);
       const res = await postRegister(payload);
-      navigate("/login");
+      navigate("/ThisWallet");
       console.log(res);
     }
   };

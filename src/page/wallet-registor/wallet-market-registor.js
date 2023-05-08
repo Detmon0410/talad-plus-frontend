@@ -24,6 +24,7 @@ function RegistorWallet() {
         bank_number: walletNumberInput,
       };
       postCreateWallet(payload);
+      navigate("/login");
     }
   };
 

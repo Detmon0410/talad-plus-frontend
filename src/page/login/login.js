@@ -95,15 +95,6 @@ function Login() {
         >
           Create Account
         </Button>
-        <a
-          className="App-link"
-          href="https://tenor.com/uQST.gif"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Forget Username or Password
-        </a>
-        ;
       </header>
     </div>
   );

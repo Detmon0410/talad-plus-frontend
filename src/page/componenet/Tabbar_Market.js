@@ -49,19 +49,6 @@ export default function BasicTabs(props) {
   const [value, setValue] = React.useState(0);
   const [rating, setRating] = React.useState(2);
   const [ReviewList, setReviewList] = React.useState([]);
-  const reviews = [
-    {
-      name: "John Doe",
-      date: "April 20, 2023",
-      review: "This is a great product! I highly recommend it.",
-    },
-    {
-      name: "Jane Smith",
-      date: "April 19, 2023",
-      review:
-        "I was disappointed with this product. It did not meet my expectations.",
-    },
-  ];
 
   const handleChange = (event, newValue) => {
     getReview(marketdetail._id).then((res) => {

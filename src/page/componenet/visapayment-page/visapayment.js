@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { TextField, Button, Typography } from "@mui/material";
 import "./PaymentForm.css";
 import CreditCardOutlinedIcon from "@mui/icons-material/CreditCardOutlined";
-import { getSelectedStall } from "./visapayment-service";
+import { getSelectedStall } from "../visapayment-page/visapayment-service";
 
 const PaymentForm = (props) => {
   const {
