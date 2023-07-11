@@ -63,10 +63,7 @@ function App() {
           <Route path="/home" element={<UserHomePage />} />
           <Route path="/ThisWallet" element={<RegistorWallet />} />
           <Route path="/walletPage" element={<WalletPage />} />
-          <Route
-            path="/asxdllkmkylix332422@co_n22323123"
-            element={<AdminMain />}
-          />
+          <Route path="/admincintrolpage" element={<AdminMain />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="*" element={<LoginPage />} />
         </Routes>

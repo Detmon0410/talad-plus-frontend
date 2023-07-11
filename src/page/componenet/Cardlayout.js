@@ -1,42 +1,28 @@
 import * as React from "react";
-import { styled } from "@mui/material/styles";
+
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import Button from "@mui/material/Button";
-import Collapse from "@mui/material/Collapse";
-import Avatar from "@mui/material/Avatar";
+
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import { red } from "@mui/material/colors";
+
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import PlaceIcon from "@mui/icons-material/Place";
+
 import { getSelectedMarket } from "../public_market_profile/public_marketprofile-service";
 import { useNavigate } from "react-router-dom";
 
-const ExpandMore = styled((props) => {
-  const { expand, ...other } = props;
-  return <IconButton {...other} />;
-})(({ theme, expand }) => ({
-  transform: !expand ? "rotate(0deg)" : "rotate(180deg)",
-  marginLeft: "auto",
-  transition: theme.transitions.create("transform", {
-    duration: theme.transitions.duration.shortest,
-  }),
-}));
-
 export default function RecipeReviewCard(props) {
   const { market } = props;
-  const [expanded, setExpanded] = React.useState(false);
+
   const navigate = useNavigate();
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
+
   const handleClick = async () => {
     const marketId = market._id;
     const payload = {};
@@ -48,8 +34,27 @@ export default function RecipeReviewCard(props) {
     });
     console.log(res);
   };
+  const apiLike = async () => {
+    const marketId = market._id;
+    const payload = {};
+    console.log(marketId);
+    const res = await getSelectedMarket(payload, marketId);
 
-  return (
+    navigate("/Viewmarket", {
+      state: res,
+    });
+    console.log(res);
+  };
+
+  return !market ? (
+    <Card sx={{ maxWidth: 800 }}>
+      <CardContent>
+        <Typography variant="body2" color="text.secondary">
+          No data available.
+        </Typography>
+      </CardContent>
+    </Card>
+  ) : (
     <Card sx={{ maxWidth: 800 }}>
       <CardHeader
         action={
@@ -63,9 +68,9 @@ export default function RecipeReviewCard(props) {
       <Button onClick={handleClick}>
         <CardMedia
           component="img"
-          height="194"
+          style={{ height: "194px", width: "450px" }}
           image={`data:image/jpeg;base64,${market.img}`}
-          alt="Paella dish"
+          alt="CoverImg"
         ></CardMedia>
       </Button>
       <CardContent>
@@ -74,11 +79,8 @@ export default function RecipeReviewCard(props) {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
+        <IconButton aria-label="add to favorites" onClick={apiLike}>
           <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
         </IconButton>
       </CardActions>
     </Card>

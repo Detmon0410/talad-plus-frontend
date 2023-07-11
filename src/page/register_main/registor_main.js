@@ -24,8 +24,8 @@ function Login() {
   const [showMessage, setShowMessage] = React.useState(false);
 
   const items = [
-    { value: "Merchant", name: "Merchant" },
-    { value: "Market", name: "Market" },
+    { value: "Merchant", name: "พ่อค้าแม่ค้า" },
+    { value: "Market", name: "เจ้าของตลาด" },
   ];
 
   const handleEmailChange = (event) => {
@@ -42,7 +42,6 @@ function Login() {
   };
   const sentAPI = async () => {
     if (
-      !nameInput ||
       !usernameInput ||
       !passwordInput ||
       !emailInput ||
@@ -54,7 +53,6 @@ function Login() {
       setShowMessage(true);
     } else {
       const payload = {
-        name: nameInput,
         username: usernameInput,
         password: passwordInput,
         email: emailInput,
@@ -99,16 +97,7 @@ function Login() {
               id="username"
               value={usernameInput}
               onChange={(e) => setUsernameInput(e.target.value)}
-              label="Username"
-              variant="filled"
-            />
-          </p>
-          <p>
-            <TextField
-              id="name"
-              value={nameInput}
-              onChange={(e) => setNameInput(e.target.value)}
-              label="Name"
+              label="ชื่อบัญชีผู้ใช้งาน"
               variant="filled"
             />
           </p>
@@ -117,7 +106,7 @@ function Login() {
               id="password"
               value={passwordInput}
               onChange={(e) => setPasswordInput(e.target.value)}
-              label="Password"
+              label="รหัสผ่าน"
               variant="filled"
             />
           </p>
@@ -126,7 +115,7 @@ function Login() {
               value={confirmPasswordInput}
               onChange={handlePasswordChange}
               id="confirmpassword"
-              label="Confirm Password"
+              label="ยืนยันรหัสผ่าน"
               variant="filled"
               error={!isValidPassword}
               helperText={!isValidPassword && "Password doesn't match"}
@@ -135,7 +124,7 @@ function Login() {
           <p>
             <TextField
               id="email"
-              label="Email"
+              label="อีเมล"
               variant="filled"
               value={emailInput}
               onChange={handleEmailChange}
@@ -156,7 +145,7 @@ function Login() {
             }}
             onClick={sentAPI}
           >
-            Next
+            ถัดไป
           </Button>
         </div>
       </header>

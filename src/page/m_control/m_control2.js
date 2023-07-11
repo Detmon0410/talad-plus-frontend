@@ -9,6 +9,7 @@ import TextField from "@mui/material/TextField";
 import TableWaiting from "../componenet/Table_booking";
 import React, { useEffect } from "react";
 import { postCreateStall } from "./m_control-service";
+
 import { postMyMarket } from "../m_profiles/m_profile-service";
 import { selectUserReducer } from "../../redux/user/selector";
 import { useSelector } from "react-redux";
@@ -19,6 +20,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import InputAdornment from "@mui/material/InputAdornment";
+import { useNavigate } from "react-router-dom";
 import TypeSelect from "../componenet/Selector_role";
 import {
   getStallAll,
@@ -65,7 +67,7 @@ export default function BasicTabs() {
 
   const [value, setValue] = React.useState(0);
   const { state } = useLocation();
-
+  const navigate = useNavigate();
   const [stallmarket, setStallMarket] = React.useState(state);
   const userSelector = useSelector(selectUserReducer);
   const allstall = stallmarket.stall;
@@ -92,7 +94,10 @@ export default function BasicTabs() {
   useEffect(() => {
     console.log(date);
   }, [date]);
-  const handleChangeTab = (event, newValue) => {
+
+  const handleChangeTab = async (e, newValue) => {
+    const res = await getStallAll(marketId);
+    setStallMarket(res);
     setValue(newValue);
   };
 
@@ -154,8 +159,13 @@ export default function BasicTabs() {
       payload.append("mtype", markettype);
       payload.append("img", image, image.name);
       const res = await postCreateStall(marketId, payload);
+      const pullstall = await getStallAll(marketId);
+      navigate("/MControl", {
+        state: pullstall,
+      });
       console.log(payload);
       console.log(res);
+      console.log(pullstall);
     }
   };
 
@@ -281,7 +291,7 @@ export default function BasicTabs() {
             <TextField
               required
               id="zone"
-              label="Zone"
+              label="โซน"
               variant="outlined"
               size="small"
               value={zoneInput}
@@ -291,7 +301,7 @@ export default function BasicTabs() {
               type="number"
               required
               id="start"
-              label="Start"
+              label="เริ่มต้น"
               variant="outlined"
               size="small"
               InputLabelProps={{
@@ -304,7 +314,7 @@ export default function BasicTabs() {
               type="number"
               required
               id="end"
-              label="End"
+              label="สิ้นสุด"
               variant="outlined"
               size="small"
               InputLabelProps={{
@@ -317,7 +327,7 @@ export default function BasicTabs() {
               required
               type="number"
               id="price"
-              label="Price"
+              label="ราคาแผง"
               variant="outlined"
               size="small"
               InputProps={{

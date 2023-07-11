@@ -72,7 +72,7 @@ function Registor() {
           <TextField
             size="small"
             id="market_name"
-            label="Market Name"
+            label="ชื่อตลาด"
             value={marketnameInput}
             onChange={(e) => setmarketnameInput(e.target.value)}
             variant="outlined"
@@ -83,7 +83,7 @@ function Registor() {
           <TextField
             size="small"
             id="market_owner"
-            label="Owner Name"
+            label="ชื่อเจ้าของตลาด"
             variant="outlined"
             value={ownernameInput}
             onChange={(e) => setOwnernameInput(e.target.value)}
@@ -93,8 +93,8 @@ function Registor() {
         <p>
           <TextField
             size="small"
-            id="phone_number"
-            label="Phone Number"
+            id="phoneinput"
+            label="เบอร์โทรศัพท์"
             value={phonenumberInput}
             onChange={(e) => setPhoneNumberInput(e.target.value)}
             vvariant="outlined"
@@ -105,7 +105,7 @@ function Registor() {
           <TextField
             size="small"
             id="market_address"
-            label="Market Address"
+            label="ที่อยู่ของตลาด"
             value={addressInput}
             onChange={(e) => setAddressInput(e.target.value)}
             variant="outlined"
@@ -129,7 +129,7 @@ function Registor() {
                 padding: "8.5px 14px",
                 border: "1px solid rgb(192, 192, 192)",
               }}
-              placeholder="Subdistrict"
+              placeholder="ตำบล/แขวง"
             />
             <ThailandAddressTypeahead.DistrictInput
               style={{
@@ -140,7 +140,7 @@ function Registor() {
                 padding: "8.5px 14px",
                 border: "1px solid rgb(192, 192, 192)",
               }}
-              placeholder="District"
+              placeholder="อำเภอ/เขต"
             />
             <ThailandAddressTypeahead.ProvinceInput
               style={{
@@ -151,7 +151,7 @@ function Registor() {
                 padding: "8.5px 14px",
                 border: "1px solid rgb(192, 192, 192)",
               }}
-              placeholder="Province"
+              placeholder="จังหวัด"
             />
             <ThailandAddressTypeahead.PostalCodeInput
               style={{
@@ -162,7 +162,7 @@ function Registor() {
                 padding: "8.5px 14px",
                 border: "1px solid rgb(192, 192, 192)",
               }}
-              placeholder="Postal Code"
+              placeholder="รหัสไปรษณีย์"
             />
 
             <ThailandAddressTypeahead.Suggestion
@@ -211,7 +211,7 @@ function Registor() {
           }}
           onClick={sentAPI}
         >
-          Next
+          ถัดไป
         </Button>
       </p>
     </div>

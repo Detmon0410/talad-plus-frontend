@@ -10,16 +10,18 @@ import WalletIcon from "@mui/icons-material/Wallet";
 function RegistorWallet() {
   const navigate = useNavigate();
   const [walletNameInput, setWalletNameInput] = React.useState("");
+  const [BankNameInput, setBankNameInput] = React.useState("");
   const [walletNumberInput, setWalletNumberInput] = React.useState("");
   const [message, setMessage] = React.useState("");
   const [showMessage, setShowMessage] = React.useState(false);
 
   const sentAPI = async () => {
-    if (!walletNameInput || !walletNumberInput) {
+    if (!walletNameInput || !walletNumberInput || !BankNameInput) {
       setMessage("Fill is empty.");
       setShowMessage(true);
     } else {
       const payload = {
+        bank_name: BankNameInput,
         bank_user: walletNameInput,
         bank_number: walletNumberInput,
       };
@@ -34,12 +36,19 @@ function RegistorWallet() {
         style={{ color: "#ffc422", height: 200, width: 200 }}
       ></WalletIcon>
       <Typography variant="h5" gutterBottom className="Typography-root">
-        ลงทะเบียน wallet
+        ลงทะเบียน Wallet ผ่านบัญชีธนาคาร
       </Typography>
       <TextField
         required
         id="wallet-name"
-        label="ชื่อผู้ถือบัตร"
+        label="ชื่อธนาคารที่ผูกบัญชี"
+        value={BankNameInput}
+        onChange={(event) => setBankNameInput(event.target.value)}
+      />
+      <TextField
+        required
+        id="wallet-name"
+        label="ชื่อเจ้าของบัญชี"
         value={walletNameInput}
         onChange={(event) => setWalletNameInput(event.target.value)}
       />
@@ -63,7 +72,7 @@ function RegistorWallet() {
           alignItems: "center",
         }}
       >
-        Confirm
+        ยืนยัน
       </Button>
     </div>
   );

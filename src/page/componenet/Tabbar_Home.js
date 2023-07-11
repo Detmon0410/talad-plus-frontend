@@ -5,6 +5,13 @@ import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Card from "./Cardlayout";
+import { Button } from "@mui/material";
+import {
+  ThailandAddressTypeahead,
+  ThailandAddressValue,
+} from "react-thailand-address-typeahead";
+import "../merchant_registor/registor.css";
+import { getMyMarketNear } from "./Tabbar_Home-service";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -42,9 +49,28 @@ function a11yProps(index) {
 export default function BasicTabs(props) {
   const { marketlist } = props;
   const [value, setValue] = React.useState(0);
+  const [val, setVal] = React.useState(ThailandAddressValue.empty());
+  const [sState, setsState] = React.useState(false);
+  const [searchMarket, setSearchMarket] = React.useState([]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
+  };
+  const sentAPI = async () => {
+    if (!val.province || !val.district) {
+      // Handle the case when province or district values are missing
+      console.log("Province or district values are missing.");
+    } else {
+      const province = val.province;
+      const district = val.district;
+      try {
+        const res = await getMyMarketNear(district, province);
+        setSearchMarket(res);
+        console.log(res);
+      } catch (err) {
+        console.error(err);
+      }
+    }
   };
 
   return (
@@ -84,7 +110,76 @@ export default function BasicTabs(props) {
         })}
       </TabPanel>
       <TabPanel value={value} index={1}>
-        ตลาดใกล้ฉัน
+        ค้นหาตลาดในพื้นที่
+        <p>
+          <div className="address-container">
+            <ThailandAddressTypeahead
+              value={val}
+              onValueChange={(val) => setVal(val)}
+            >
+              <ThailandAddressTypeahead.DistrictInput
+                style={{
+                  borderRadius: 5,
+                  fontSize: "1rem",
+                  width: "272px",
+                  height: "23px",
+                  padding: "8.5px 14px",
+                  border: "1px solid rgb(192, 192, 192)",
+                }}
+                placeholder="District"
+              />
+              <ThailandAddressTypeahead.ProvinceInput
+                style={{
+                  borderRadius: 5,
+                  fontSize: "1rem",
+                  width: "272px",
+                  height: "23px",
+                  padding: "8.5px 14px",
+                  border: "1px solid rgb(192, 192, 192)",
+                }}
+                placeholder="Province"
+              />
+
+              <ThailandAddressTypeahead.Suggestion
+                containerProps={{
+                  style: { border: "1px solid black" },
+                }}
+                optionItemProps={{
+                  style: { fontSize: 16, cursor: "pointer" },
+                }}
+              />
+            </ThailandAddressTypeahead>
+            <Button
+              variant="contained"
+              style={{
+                backgroundColor: "#33cc33",
+                fontSize: "18px",
+              }}
+              onClick={sentAPI}
+            >
+              ค้นหา
+            </Button>
+          </div>
+          <div>
+            {" "}
+            {searchMarket.length === 0 ? (
+              <p style={{ textAlign: "center" }}>Location not found.</p>
+            ) : (
+              searchMarket.map((market) => (
+                <p
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                  key={market.id} // Make sure to include a unique key for each element in the array
+                >
+                  <Card market={market}></Card>
+                </p>
+              ))
+            )}
+          </div>
+        </p>
       </TabPanel>
       <TabPanel value={value} index={2}>
         ตลาดที่ถูกใจ

@@ -30,17 +30,27 @@ export default function SimpleAccordion() {
         </Button>
       </div>
       <div className="booking-container">
-        {stalllist.reverse().map((booking) => (
-          <Bookinglist
-            stallId={booking._id}
-            zone={booking.zone}
-            name={booking.market_name}
-            start={booking.dateStart}
-            end={booking.dateEnd}
-            status={booking.status}
-            number={booking.number}
-          ></Bookinglist>
-        ))}
+        {stalllist ? (
+          stalllist.length > 0 ? (
+            stalllist
+              .reverse()
+              .map((booking) => (
+                <Bookinglist
+                  stallId={booking._id}
+                  zone={booking.zone}
+                  name={booking.market_name}
+                  start={booking.dateStart}
+                  end={booking.dateEnd}
+                  status={booking.status}
+                  number={booking.number}
+                ></Bookinglist>
+              ))
+          ) : (
+            <p>ไม่มีตลาดที่คุณจองในขณะนี้</p>
+          )
+        ) : (
+          <p>ไม่มีตลาดที่คุณจองในขณะนี้</p>
+        )}
       </div>
     </div>
   );
