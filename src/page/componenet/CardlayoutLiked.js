@@ -14,16 +14,18 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-
+import NotInterestedIcon from "@mui/icons-material/NotInterested";
 import { getSelectedMarket } from "../public_market_profile/public_marketprofile-service";
-import { postLikeMarket } from "../u_homepage/u_homepage-service";
+
+import {
+  postUnLikeMarket,
+  getLikeMarket,
+} from "../u_homepage/u_homepage-service";
 import { useNavigate } from "react-router-dom";
 
 export default function RecipeReviewCard(props) {
-  const { market } = props;
-
+  const { market, setLiked } = props;
   const navigate = useNavigate();
-
   const handleClick = async () => {
     const marketId = market._id;
     const payload = {};
@@ -35,11 +37,13 @@ export default function RecipeReviewCard(props) {
     });
     console.log(res);
   };
-  const apiLike = async () => {
+  const apiUnlike = async () => {
     const marketId = market._id;
-    const payload = { marketId };
-    console.log(payload);
-    const res = await postLikeMarket(payload);
+    const payload = {};
+    console.log(marketId);
+    const res = await postUnLikeMarket(payload, marketId);
+    const likeres = await getLikeMarket();
+    setLiked(likeres);
     console.log(res);
   };
 
@@ -76,8 +80,8 @@ export default function RecipeReviewCard(props) {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites" onClick={apiLike}>
-          <FavoriteIcon />
+        <IconButton aria-label="add to favorites" onClick={apiUnlike}>
+          <NotInterestedIcon />
         </IconButton>
       </CardActions>
     </Card>
