@@ -11,6 +11,7 @@ import ReviewCard from "../componenet/CardmarketReview";
 import "./Tabbar_Market.css";
 import { Button } from "@mui/material";
 import { getReview } from "../public_market_profile/public_marketprofile-service";
+import ImgUpload from "./ImgMarketUploader";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -80,6 +81,7 @@ export default function BasicTabs(props) {
       </Box>
       <TabPanel value={value} index={0}>
         รูปภาพตลาด
+        <ImgUpload marketdetail={marketdetail}></ImgUpload>
         <ImgList></ImgList>
       </TabPanel>
       <TabPanel value={value} index={1}>

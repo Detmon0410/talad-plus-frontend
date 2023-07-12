@@ -9,6 +9,8 @@ import ReviewCard from "../componenet/CardmarketReview";
 import "./Tabbar_Market.css";
 import { Button } from "@mui/material";
 import { getReview } from "../public_market_profile/public_marketprofile-service";
+import { getLikeMarket } from "../u_homepage/u_homepage-service";
+import LikeCard from "./CardlayoutLiked";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -47,11 +49,17 @@ export default function BasicTabs(props) {
   const [value, setValue] = React.useState(0);
   const [rating, setRating] = React.useState(2);
   const [ReviewList, setReviewList] = React.useState([]);
+  const [onLoading, setOnLoading] = React.useState(false);
+  const [liked, setLiked] = React.useState([]);
 
   const handleChange = (event, newValue) => {
     getReview(marketdetail._id).then((res) => {
       setReviewList(res);
       console.log(res);
+    });
+    getLikeMarket().then((res) => {
+      setLiked(res);
+      setOnLoading(true);
     });
     setValue(newValue);
   };
@@ -88,6 +96,32 @@ export default function BasicTabs(props) {
       </TabPanel>
       <TabPanel value={value} index={1}>
         ตลาดที่ถูกใจ
+        {onLoading ? (
+          liked.market.map((selectMarket) => {
+            return (
+              <p
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <LikeCard market={selectMarket} setLiked={setLiked}></LikeCard>
+              </p>
+            );
+          })
+        ) : (
+          <div class="lds-roller">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        )}
       </TabPanel>
     </Box>
   );

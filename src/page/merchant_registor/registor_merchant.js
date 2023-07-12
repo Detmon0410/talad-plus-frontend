@@ -39,7 +39,6 @@ function Registor() {
       payload.append("district", val.district);
       payload.append("post", val.postalCode);
       payload.append("img", image, image.name);
-
       console.log(payload);
       const res = await postMeRegister(payload);
       navigate("/login");

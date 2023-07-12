@@ -56,14 +56,14 @@ export default function BasicTabs(props) {
   const [val, setVal] = React.useState(ThailandAddressValue.empty());
   const [sState, setsState] = React.useState(false);
   const [searchMarket, setSearchMarket] = React.useState([]);
-  const [liked, setLiked] = React.useState({});
+  const [liked, setLiked] = React.useState([]);
 
   const handleChange = async (event, newValue) => {
     const res = await getLikeMarket();
     setLiked(res);
+    setValue(newValue);
     setOnLoading(true);
     // console.log(res);
-    setValue(newValue);
   };
   useEffect(() => {
     console.log(liked);
@@ -108,9 +108,20 @@ export default function BasicTabs(props) {
           </Tabs>
         </Box>
         <TabPanel value={value} index={0}>
-          ตลาดแนะนำ
-          {marketlist.map((market) => {
-            return (
+          <p style={{ textAlign: "center" }}>ตลาดแนะนำ</p>
+          {marketlist.length === 0 ? (
+            <div class="lds-roller">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+          ) : (
+            marketlist.map((market) => (
               <p
                 style={{
                   display: "flex",
@@ -118,10 +129,10 @@ export default function BasicTabs(props) {
                   justifyContent: "center",
                 }}
               >
-                <Card market={market}></Card>
+                <Card market={market} />
               </p>
-            );
-          })}
+            ))
+          )}
         </TabPanel>
         <TabPanel value={value} index={1}>
           ค้นหาตลาดในพื้นที่
@@ -176,7 +187,7 @@ export default function BasicTabs(props) {
             </div>
             <div>
               {searchMarket.length === 0 ? (
-                <p style={{ textAlign: "center" }}>Location not found.</p>
+                <p style={{ textAlign: "center" }}>ไม่พบตลาดในพื้นที่</p>
               ) : (
                 searchMarket.map((market) => (
                   <p
