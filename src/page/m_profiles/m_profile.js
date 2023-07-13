@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import "../App.css";
-import Appbar from "../componenet/AppbarMarket";
+import "../componenet/Tabbar_Market.css";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
@@ -9,18 +9,59 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Tabbar from "../componenet/Tabbar_Market";
 import Button from "@mui/material/Button";
-import { postMyMarket } from "./m_profile-service";
-import { selectUserReducer } from "../../redux/user/selector";
 import { getSelectedMarket } from "../public_market_profile/public_marketprofile-service";
+import { selectUserReducer } from "../../redux/user/selector";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import { blue } from "@mui/material/colors";
+import { useNavigate } from "react-router-dom";
+import { getStallAll } from "../m_booking/m_booking-service";
+import { postCreateReview } from "../public_market_profile/public_marketprofile-service";
+import { getReview } from "../public_market_profile/public_marketprofile-service";
 
 function MProfile() {
+  const navigate = useNavigate();
   const { state, statereview } = useLocation();
   const userSelector = useSelector(selectUserReducer);
   const [marketDetail, setMarketDetail] = React.useState(state);
-  const navigate = useNavigate();
+  const [reviewList, setReviewList] = React.useState(statereview);
+  const [date, setDate] = React.useState(new Date());
+  const [rating, setRating] = React.useState(2);
+  const [reviewValue, setReviewValue] = React.useState("");
+
+  const handleClick = async () => {
+    const marketId = marketDetail._id;
+    const res = await getStallAll(marketId);
+    navigate("/bookingstall", {
+      state: res,
+    });
+    console.log("this is " + res);
+  };
+
+  const sendApiReview = async () => {
+    const marketId = marketDetail._id;
+    const payload = {
+      market: marketId,
+      description: reviewValue,
+      rating: rating,
+    };
+
+    const res = await postCreateReview(payload);
+
+    console.log("this is " + reviewList);
+  };
+
+  useEffect(() => {
+    console.log("this is" + reviewList);
+  }, [marketDetail]);
+  useEffect(() => {
+    console.log(state);
+    console.log(statereview);
+    // getSelectedMarket(userSelector).then((res) => {
+    //   setMarketDetail([...res]);
+    //   console.log(res);
+    // });
+  }, []);
 
   return (
     <div className="App">
@@ -28,7 +69,18 @@ function MProfile() {
         <CssBaseline />
         <Container maxWidth="sm">
           <p></p>
-          {marketDetail.map((pic) => (
+          <Box
+            style={{
+              display: "block",
+              marginLeft: "auto",
+              marginRight: "auto",
+              width: "100%",
+              height: "80%",
+              maxHeight: 360,
+              maxWidth: 820,
+              bgcolor: blue,
+            }}
+          >
             <img
               style={{
                 display: "block",
@@ -39,31 +91,26 @@ function MProfile() {
                 maxHeight: 360,
                 maxWidth: 820,
               }}
-              src={`data:image/jpeg;base64,${pic.img}`}
+              src={`data:image/jpeg;base64,${marketDetail.img}`}
             />
-          ))}
+          </Box>
           <p></p>
-          {marketDetail.map((mname) => (
-            <Typography
-              variant="h1"
-              component="h2"
-              label={mname.name}
-              style={{ fontSize: "2rem" }}
-            >
-              {mname.name}
-            </Typography>
-          ))}
-          {marketDetail.map((where) => (
-            <Typography
-              variant="h3"
-              component="h3"
-              label={where.province}
-              style={{ fontSize: "1.2rem" }}
-            >
-              {where.province} ,{where.district}
-            </Typography>
-          ))}
-
+          <Typography
+            variant="h1"
+            component="h2"
+            label={marketDetail.name}
+            style={{ fontSize: "2rem" }}
+          >
+            {marketDetail.name}
+          </Typography>
+          <Typography
+            variant="h3"
+            component="h3"
+            label={marketDetail.province}
+            style={{ fontSize: "1.2rem" }}
+          >
+            {marketDetail.province} ,{marketDetail.district}
+          </Typography>
           <p>
             <Box
               sx={{
@@ -71,7 +118,12 @@ function MProfile() {
               }}
             >
               <Typography component="legend"></Typography>
-              <Rating name="no-value" value={null} />
+              <Rating
+                size="large"
+                name="no-value"
+                value={marketDetail.totalStars}
+                readOnly
+              />
             </Box>
           </p>
           <TextField
@@ -79,10 +131,86 @@ function MProfile() {
             label="About"
             multiline
             rows={4}
-            defaultValue="Infomation About Market"
+            defaultValue="ตลาดนัดเปิดใหม่ ติดถนนลาดจอดรถกว้าง พื้นที่กว้าง ห้องน้ำสะอาเ"
             sx={{ width: "100%" }}
             disabled
           />
+          <p></p>
+          {userSelector.role !== "Market" ? (
+            <Box>
+              <Button
+                variant="contained"
+                style={{
+                  backgroundColor: "#33cc33",
+                  fontSize: "18px",
+                }}
+                onClick={handleClick}
+              >
+                จองพื้นที่ขายของ
+                <p></p>
+              </Button>
+            </Box>
+          ) : (
+            <Box></Box>
+          )}
+          <p></p>
+
+          <div
+            className="reviewbox-container"
+            style={{ display: "flex", alignItems: "center" }}
+          >
+            {" "}
+            {userSelector.role !== "Market" ? (
+              <TextField
+                id="review"
+                label="แสดงความคิดเห็น"
+                variant="outlined"
+                multiline
+                maxRows={4}
+                style={{
+                  fontSize: 14,
+                  width: "300px",
+                  marginLeft: "20px",
+                }}
+                value={reviewValue}
+                onChange={(event) => setReviewValue(event.target.value)}
+              />
+            ) : (
+              <Box></Box>
+            )}
+            <div classname="starbutton">
+              {userSelector.role !== "Market" ? (
+                <Rating
+                  name="simple-controlled"
+                  value={rating}
+                  onChange={(event, newValue) => {
+                    console.log(newValue);
+                    setRating(newValue);
+                  }}
+                />
+              ) : (
+                <Box></Box>
+              )}
+              {userSelector.role !== "Market" ? (
+                <Button
+                  variant="contained"
+                  style={{
+                    fontSize: 14,
+                    height: "45px",
+                    width: "90px",
+                    marginLeft: "20px",
+                  }}
+                  onClick={sendApiReview}
+                >
+                  เขียนรีวิว
+                </Button>
+              ) : (
+                <Box></Box>
+              )}
+            </div>
+          </div>
+
+          <p></p>
           <Tabbar marketdetail={marketDetail}></Tabbar>
         </Container>
       </React.Fragment>

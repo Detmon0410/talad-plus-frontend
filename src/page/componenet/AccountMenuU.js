@@ -33,9 +33,9 @@ export default function AccountMenu(props) {
 
   const sendApi = async () => {
     const payload = {};
-    console.log(marketId);
+    const marketId = uid;
     const res = await getSelectedMarket(payload, marketId);
-    navigate("/Viewmarket", {
+    navigate("/MProfile", {
       state: res,
     });
     console.log(res);

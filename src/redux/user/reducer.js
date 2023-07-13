@@ -20,6 +20,7 @@ export const userStore = createSlice({
         role: action.payload.role,
         img: action.payload.img,
         uid: action.payload.uid,
+        oid: action.payload.oid,
         signIn: true,
       };
     },
@@ -30,6 +31,7 @@ export const userStore = createSlice({
         role: "",
         img: "",
         uid: "",
+        oid: "",
         signIn: false,
       };
     },

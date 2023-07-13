@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -12,6 +12,9 @@ import "./Tabbar_Market.css";
 import { Button } from "@mui/material";
 import { getReview } from "../public_market_profile/public_marketprofile-service";
 import ImgUpload from "./ImgMarketUploader";
+import { getMyImgList } from "../m_profiles/m_profile-service";
+import { useSelector } from "react-redux";
+import { selectUserReducer } from "../../redux/user/selector";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -50,14 +53,22 @@ export default function BasicTabs(props) {
   const [value, setValue] = React.useState(0);
   const [rating, setRating] = React.useState(2);
   const [ReviewList, setReviewList] = React.useState([]);
+  const [pictureList, setPictureList] = React.useState([]);
+  const userSelector = useSelector(selectUserReducer);
+  const [ownerref, setOwnerRef] = useState([]);
+  const [marketref, setMarketRef] = useState([]);
 
   const handleChange = (event, newValue) => {
     getReview(marketdetail._id).then((res) => {
       setReviewList(res);
-      console.log(ReviewList);
     });
     setValue(newValue);
   };
+  useEffect(() => {
+    getMyImgList(marketdetail._id).then((res) => setPictureList(res.image));
+    setOwnerRef(userSelector.oid);
+    setMarketRef(marketdetail.owner);
+  }, []);
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -81,8 +92,15 @@ export default function BasicTabs(props) {
       </Box>
       <TabPanel value={value} index={0}>
         รูปภาพตลาด
-        <ImgUpload marketdetail={marketdetail}></ImgUpload>
-        <ImgList></ImgList>
+        {ownerref == marketref ? (
+          <ImgUpload
+            marketdetail={marketdetail}
+            setPictureList={setPictureList}
+          />
+        ) : (
+          <div></div>
+        )}
+        <ImgList pictureList={pictureList}></ImgList>
       </TabPanel>
       <TabPanel value={value} index={1}>
         <p>รีวิวจากผู้เช่า</p>
