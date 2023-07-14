@@ -65,6 +65,7 @@ function App() {
           <Route path="/walletPage" element={<WalletPage />} />
           <Route path="/admincintrolpage" element={<AdminMain />} />
           <Route path="/login" element={<LoginPage />} />
+          {signIn && <Route path="*" element={<UserHomePage />} />}
           <Route path="*" element={<LoginPage />} />
         </Routes>
       </BrowserRouter>

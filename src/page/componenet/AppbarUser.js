@@ -75,15 +75,6 @@ export default function CustomeAppBar(props) {
             >
               <HomeIcon onClick={sendApi} />
             </IconButton>
-            <IconButton
-              size="large"
-              edge="start"
-              color="inherit"
-              aria-label="open drawer"
-              sx={{ mr: 2 }}
-            >
-              <NotificationsIcon />
-            </IconButton>
 
             <Typography
               variant="h6"

@@ -16,6 +16,8 @@ import {
 import "../merchant_registor/registor.css";
 import { getMyMarketNear } from "./Tabbar_Home-service";
 import { getLikeMarket } from "../u_homepage/u_homepage-service";
+import { useSelector } from "react-redux";
+import { selectUserReducer } from "../../redux/user/selector";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -56,11 +58,10 @@ export default function BasicTabs(props) {
   const [val, setVal] = React.useState(ThailandAddressValue.empty());
   const [sState, setsState] = React.useState(false);
   const [searchMarket, setSearchMarket] = React.useState([]);
-  const [liked, setLiked] = React.useState([]);
+  const [liked, setLiked] = React.useState({});
 
   const handleChange = async (event, newValue) => {
-    const res = await getLikeMarket();
-    setLiked(res);
+    getLikeMarket().then((res) => setLiked(res));
     setValue(newValue);
     setOnLoading(true);
     // console.log(res);
@@ -68,6 +69,10 @@ export default function BasicTabs(props) {
   useEffect(() => {
     console.log(liked);
   }, [liked]);
+  useEffect(() => {
+    getLikeMarket().then((res) => setLiked(res));
+  }, []);
+
   const sentAPI = async () => {
     if (!val.province || !val.district) {
       // Handle the case when province or district values are missing
