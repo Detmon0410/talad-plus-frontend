@@ -13,7 +13,7 @@ import {
   ThailandAddressTypeahead,
   ThailandAddressValue,
 } from "react-thailand-address-typeahead";
-
+import CustomAlert from "../componenet/Alert2077";
 function Registor() {
   const navigate = useNavigate();
   const [message, setMessage] = React.useState("");
@@ -26,6 +26,24 @@ function Registor() {
   const [imagelicense, setImageLicense] = React.useState();
   const [val, setVal] = useState(ThailandAddressValue.empty());
   const [subDistrict, setSubDistrict] = React.useState("");
+  const [showAlert, setShowAlert] = useState(false);
+
+  const [serv, setServ] = React.useState("");
+
+  const handleShowAlert = () => {
+    setShowAlert(true);
+  };
+  useEffect(() => {
+    if (showAlert) {
+      const timer = setTimeout(() => {
+        setShowAlert(false);
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [showAlert]);
+  const handleCloseAlert = () => {
+    setShowAlert(false);
+  };
 
   const sentAPI = async () => {
     if (
@@ -35,8 +53,11 @@ function Registor() {
       !addressInput
     ) {
       setMessage("Fill is empty or Fill is Incorrect.");
+
       console.log(val.province);
       setShowMessage(true);
+      setServ("warning");
+      setShowAlert(true);
     } else {
       const payload = new FormData();
       payload.append("name", marketnameInput);
@@ -59,10 +80,11 @@ function Registor() {
 
   return (
     <div className="App">
-      <Alert
+      <CustomAlert
+        showAlert={showAlert}
         message={message}
-        showMessage={showMessage}
-        setShowMessage={setShowMessage}
+        handleCloseAlert={handleCloseAlert}
+        serv={serv}
       />
 
       <h1 className="Text-Style">ลงทะเบียนตลาด</h1>

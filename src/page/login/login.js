@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "../App.css";
 import Alert from "../componenet/Alert/Alert1997";
 import Button from "@mui/material/Button";
@@ -8,7 +8,7 @@ import Box from "@mui/material/Box";
 import { postLogin } from "./login-service";
 import { useDispatch } from "react-redux";
 import { updateUser } from "../../redux/user/actions";
-
+import CustomAlert from "../componenet/Alert2077";
 function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -16,9 +16,14 @@ function Login() {
   const [showMessage, setShowMessage] = React.useState(false);
   const [usernameInput, setUsernameInput] = React.useState("");
   const [passwordInput, setPasswordInput] = React.useState("");
+  const [showAlert, setShowAlert] = useState(false);
+  const [serv, setServ] = React.useState("");
   const sentAPI = async () => {
     if (!usernameInput || !passwordInput) {
       setMessage("Filled is empty");
+      setServ("warning");
+      setShowAlert(true);
+
       setShowMessage(true);
     } else {
       const payload = {
@@ -31,17 +36,32 @@ function Login() {
         dispatch(updateUser(res));
         navigate("/home");
       } catch (error) {
-        setMessage(error.response.data.message);
+        setMessage("Username or Password is Invalid");
+
+        setServ("warning");
         setShowMessage(true);
+        setShowAlert(true);
       }
     }
   };
+  useEffect(() => {
+    if (showAlert) {
+      const timer = setTimeout(() => {
+        setShowAlert(false);
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [showAlert]);
+  const handleCloseAlert = () => {
+    setShowAlert(false);
+  };
   return (
     <div className="App">
-      <Alert
+      <CustomAlert
+        showAlert={showAlert}
         message={message}
-        showMessage={showMessage}
-        setShowMessage={setShowMessage}
+        handleCloseAlert={handleCloseAlert}
+        serv={serv}
       />
       <header className="App-header">
         <img

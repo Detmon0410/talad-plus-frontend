@@ -104,20 +104,14 @@ function WalletPage() {
             className="money"
           >{`Money: ${WalletDetail[0].money}`}</Typography>
         </div>
-        <Button
-          variant="contained"
-          onClick={handleWithdrawMoney}
-          style={{ backgroundColor: "#225dff ", width: "150px" }}
-        >
-          Deposit
-        </Button>
+
         <p></p>
         <Button
           variant="contained"
           onClick={handleWithdrawMoney}
           style={{ backgroundColor: "#ffc422", width: "150px" }}
         >
-          Withdraw
+          ถอนเงิน
         </Button>
       </Box>
       <Button

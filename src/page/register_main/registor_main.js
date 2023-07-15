@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+
 import Alert from "../componenet/Alert/Alert1997";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
@@ -9,6 +10,7 @@ import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import "../App.css";
 import "../registor_owner/registor_owner.css";
+import CustomAlert from "../componenet/Alert2077";
 
 function Login() {
   const navigate = useNavigate();
@@ -23,6 +25,24 @@ function Login() {
   const [message, setMessage] = React.useState("");
   const [showMessage, setShowMessage] = React.useState(false);
 
+  const [showAlert, setShowAlert] = React.useState(false);
+
+  const [serv, setServ] = React.useState("");
+  const handleShowAlert = () => {
+    setShowAlert(true);
+  };
+  useEffect(() => {
+    if (showAlert) {
+      const timer = setTimeout(() => {
+        setShowAlert(false);
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [showAlert]);
+
+  const handleCloseAlert = () => {
+    setShowAlert(false);
+  };
   const items = [
     { value: "Merchant", name: "พ่อค้าแม่ค้า" },
     { value: "Market", name: "เจ้าของตลาด" },
@@ -50,6 +70,8 @@ function Login() {
       isValidPassword == false
     ) {
       setMessage("Fill is empty or Fill is Incorrect.");
+      setServ("warning");
+      setShowAlert(true);
       setShowMessage(true);
     } else {
       const payload = {
@@ -61,7 +83,10 @@ function Login() {
       const res = await postRegister(payload);
       if (res.status >= 403) {
         // Request failed, retry the request
+
         setMessage("username or email is duplicate");
+        setServ("warning");
+        setShowAlert(true);
         setShowMessage(true);
       } else {
         // Request succeeded, navigate to the appropriate page
@@ -76,10 +101,11 @@ function Login() {
   };
   return (
     <div className="App">
-      <Alert
+      <CustomAlert
+        showAlert={showAlert}
         message={message}
-        showMessage={showMessage}
-        setShowMessage={setShowMessage}
+        handleCloseAlert={handleCloseAlert}
+        serv={serv}
       />
       <header className="App-header">
         <img

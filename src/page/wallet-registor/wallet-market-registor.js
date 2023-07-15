@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { postCreateWallet } from "./wallet-registor-service";
 import "./WalletRegisterPage.css";
 import WalletIcon from "@mui/icons-material/Wallet";
+import CustomAlert from "../componenet/Alert2077";
 function RegistorWallet() {
   const navigate = useNavigate();
   const [walletNameInput, setWalletNameInput] = React.useState("");
@@ -14,10 +15,28 @@ function RegistorWallet() {
   const [walletNumberInput, setWalletNumberInput] = React.useState("");
   const [message, setMessage] = React.useState("");
   const [showMessage, setShowMessage] = React.useState(false);
-
+  const [showAlert, setShowAlert] = useState(false);
+  const [serv, setServ] = React.useState("");
+  const handleShowAlert = () => {
+    setServ("warning");
+    setShowAlert(true);
+  };
+  useEffect(() => {
+    if (showAlert) {
+      const timer = setTimeout(() => {
+        setShowAlert(false);
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [showAlert]);
+  const handleCloseAlert = () => {
+    setShowAlert(false);
+  };
   const sentAPI = async () => {
     if (!walletNameInput || !walletNumberInput || !BankNameInput) {
       setMessage("Fill is empty.");
+      setServ("warning");
+      setShowAlert(true);
       setShowMessage(true);
     } else {
       const payload = {
@@ -32,6 +51,12 @@ function RegistorWallet() {
 
   return (
     <div className="table-container">
+      <CustomAlert
+        showAlert={showAlert}
+        message={message}
+        handleCloseAlert={handleCloseAlert}
+        serv={serv}
+      />
       <WalletIcon
         style={{ color: "#ffc422", height: 200, width: 200 }}
       ></WalletIcon>

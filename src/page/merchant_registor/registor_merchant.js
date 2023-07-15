@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../App.css";
 import Alert from "../componenet/Alert/Alert1997";
 import Box from "@mui/material/Box";
@@ -8,6 +8,7 @@ import Upload from "../componenet/ImageUp_MarketR";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import { postMeRegister } from "./register_merchant-service";
+import CustomAlert from "../componenet/Alert2077";
 import {
   ThailandAddressTypeahead,
   ThailandAddressValue,
@@ -24,11 +25,28 @@ function Registor() {
   const [phonenumberInput, setPhonenumberInput] = React.useState("");
   const [image, setImage] = React.useState(new FormData());
   const [val, setVal] = useState(ThailandAddressValue.empty());
+  const [showAlert, setShowAlert] = useState(false);
+
+  const [serv, setServ] = React.useState("");
+  useEffect(() => {
+    if (showAlert) {
+      const timer = setTimeout(() => {
+        setShowAlert(false);
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [showAlert]);
+
+  const handleCloseAlert = () => {
+    setShowAlert(false);
+  };
 
   const sentAPI = async () => {
-    if (!mnameInput || !addressInput) {
+    if (!mnameInput || !addressInput || !phonenumberInput) {
       setMessage("Fill is empty or Fill is Incorrect.");
       setShowMessage(true);
+      setServ("warning");
+      setShowAlert(true);
     } else {
       const payload = new FormData();
       payload.append("name", mnameInput);
@@ -48,10 +66,11 @@ function Registor() {
 
   return (
     <div className="App">
-      <Alert
+      <CustomAlert
+        showAlert={showAlert}
         message={message}
-        showMessage={showMessage}
-        setShowMessage={setShowMessage}
+        handleCloseAlert={handleCloseAlert}
+        serv={serv}
       />
 
       <h1 className="Text-Style">ลงทะเบียนพ่อค้าแม่ค้า</h1>

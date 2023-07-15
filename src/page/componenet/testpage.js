@@ -6,6 +6,7 @@ const Testaleart = () => {
   const [message, setMessage] = React.useState("");
   const [serv, setServ] = React.useState("");
   const handleShowAlert = () => {
+    setServ("warning");
     setShowAlert(true);
   };
 
