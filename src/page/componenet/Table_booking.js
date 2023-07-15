@@ -118,18 +118,20 @@ export default function DataTable(props) {
   const sentAPI = async () => {
     const selectedRows = rows.filter((row) => selectionModel.includes(row.id));
     const payloadstatus = selectedRows;
-    const marketId = market._id;
-    const datepick = new Date(pickdate);
-    const payload = {
-      zoneId: pickZone._id,
-      date: datepick,
-    };
-    console.log(payloadstatus);
-    postEditstatus(marketId, payloadstatus);
-    getSubStall(payload, marketId).then((res) => {
-      SetAvailableNumber(res);
-      console.log(res);
-    });
+    if (payloadstatus.length !== 0) {
+      const marketId = market._id;
+      const datepick = new Date(pickdate);
+      const payload = {
+        zoneId: pickZone._id,
+        date: datepick,
+      };
+      console.log(payloadstatus);
+      postEditstatus(marketId, payloadstatus);
+      getSubStall(payload, marketId).then((res) => {
+        SetAvailableNumber(res);
+        console.log(res);
+      });
+    }
   };
 
   useEffect(() => {
