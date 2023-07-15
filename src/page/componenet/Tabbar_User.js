@@ -60,18 +60,17 @@ export default function BasicTabs(props) {
       setOnLoading(true);
     });
     setValue(newValue);
-    setNoReport(true);
   };
 
   const handleClick = () => {
     const uid = marketdetail._id;
     getReported(uid).then((res) => {
+      console.log(res);
       setReportList(res);
       console.log(res);
       setNoReport(res.length === 0); // Set 'noReport' to true if 'res' is empty
     });
   };
-
   return (
     <Box sx={{ width: "100%" }}>
       <Box
@@ -110,17 +109,26 @@ export default function BasicTabs(props) {
           <Typography variant="body1" style={{ margin: "10px 0" }}>
             No report
           </Typography>
-        ) : noReport ? (
+        ) : reportlist.length > 0 ? (
           reportlist.map((review, index) => (
             <ReviewCard
               key={index}
-              name={review.name}
+              name={review.market}
               rating={review.star}
               review={review.description}
             ></ReviewCard>
           ))
         ) : (
-          <div class="lds-roller"></div>
+          <div class="lds-roller">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
         )}
       </TabPanel>
       <TabPanel value={value} index={1}>
