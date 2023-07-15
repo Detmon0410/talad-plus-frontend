@@ -17,8 +17,9 @@ import { getStallAll } from "../m_booking/m_booking-service";
 import { getmyWallet } from "../wallet-market copy/wallet-market-service";
 import { getBookedStall } from "../bookinglist/bookinglist-service";
 import { getSelectedMarket } from "../public_market_profile/public_marketprofile-service";
+import { getMerchant } from "../u_profilesM/u_profileMservice";
 export default function AccountMenu(props) {
-  const { img, name, signOut, role, uid } = props;
+  const { img, name, signOut, role, uid, refid } = props;
   const navigate = useNavigate();
   const marketId = uid;
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -48,8 +49,12 @@ export default function AccountMenu(props) {
     });
     console.log(uid);
   };
-  const sendApiMC = () => {
-    navigate("/Profile");
+  const sendApiMC = async () => {
+    const res = await getMerchant(refid);
+    navigate("/ProfileView", {
+      state: res,
+      uid: res._id,
+    });
   };
 
   const sendApiW = async () => {

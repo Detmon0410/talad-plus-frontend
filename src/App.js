@@ -15,7 +15,7 @@ import RegistorWallet from "./page/wallet-registor/wallet-market-registor";
 import WalletPage from "./page/wallet-market copy/wallet-market";
 import BookinStallList from "./page/bookinglist/bookinglist_page";
 import Receipt from "./page/receipt-booking/receipt-booking";
-
+import ProfileView from "./page/u_profilesM/u_profileM";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
 import DefualtLoader from "./page/componenet/loader/Loader";
@@ -44,6 +44,7 @@ function App() {
             name={userSelector.name}
             role={userSelector.role}
             uid={userSelector.uid}
+            refid={userSelector.oid}
             signOut={handleSignOut}
           ></Appbar>
         )}
@@ -55,7 +56,7 @@ function App() {
           <Route path="/MProfile" element={<MarketProfile />} />
           <Route path="/MControl" element={<MarketControl />} />
           <Route path="/Viewmarket" element={<PMarketprofile />} />
-
+          <Route path="/ProfileView" element={<ProfileView />} />
           <Route path="/marketregistor" element={<MarketRegistor />} />
           <Route path="/merchantregistor" element={<MerchantRegistor />} />
           <Route path="/bookingstall" element={<BookingStall />} />

@@ -68,19 +68,14 @@ function Registor() {
               }}
             >
               <Typography component="legend"></Typography>
-              <Rating name="no-value" value={null} readOnly />
+              <Rating name="no-value" value={userDetail.totalStars} readOnly />
             </Box>
           </p>
-          <TextField
-            id="outlined-multiline-static"
-            label="About"
-            multiline
-            rows={4}
-            defaultValue="Infomation About Me"
-            sx={{ width: "100%" }}
-            disabled
-          />
-          <Tabbar marketdetail={userDetail}></Tabbar>
+
+          <Tabbar
+            marketdetail={userDetail}
+            setUserDetail={setUserDetail}
+          ></Tabbar>
         </Container>
       </React.Fragment>
     </div>

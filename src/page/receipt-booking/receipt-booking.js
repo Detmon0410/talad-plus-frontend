@@ -22,6 +22,7 @@ const Receipt = () => {
     });
     console.log("this is " + res);
   };
+
   const sendApi = () => {
     navigate("/home");
   };

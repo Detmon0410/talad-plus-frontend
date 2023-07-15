@@ -8,9 +8,9 @@ import Box from "@mui/material/Box";
 import ReviewCard from "../componenet/CardmarketReview";
 import "./Tabbar_Market.css";
 import { Button } from "@mui/material";
-import { getReview } from "../public_market_profile/public_marketprofile-service";
+import { getReported, getViewFavorite } from "../u_profilesM/u_profileMservice";
 import { getLikeMarket } from "../u_homepage/u_homepage-service";
-import LikeCard from "./CardlayoutLiked";
+import LikeCard from "./CardLikedView";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -45,23 +45,30 @@ function a11yProps(index) {
 }
 
 export default function BasicTabs(props) {
-  const { marketdetail } = props;
+  const { marketdetail, reportlist, setReportList } = props;
   const [value, setValue] = React.useState(0);
   const [rating, setRating] = React.useState(2);
   const [ReviewList, setReviewList] = React.useState([]);
   const [onLoading, setOnLoading] = React.useState(false);
+  const [noReport, setNoReport] = React.useState(false);
   const [liked, setLiked] = React.useState([]);
 
   const handleChange = (event, newValue) => {
-    getReview(marketdetail._id).then((res) => {
-      setReviewList(res);
-      console.log(res);
-    });
-    getLikeMarket().then((res) => {
+    getViewFavorite(marketdetail._id).then((res) => {
       setLiked(res);
+      console.log(liked);
       setOnLoading(true);
     });
     setValue(newValue);
+  };
+
+  const handleClick = () => {
+    const uid = marketdetail._id;
+    getReported(uid).then((res) => {
+      setReportList(res);
+      console.log(res);
+      setNoReport(res.length === 0); // Set 'noReport' to true if 'res' is empty
+    });
   };
   return (
     <Box sx={{ width: "100%" }}>
@@ -78,21 +85,50 @@ export default function BasicTabs(props) {
           onChange={handleChange}
           aria-label="basic tabs example"
         >
-          <Tab label="รีวิวจากเจ้าของตลาด" {...a11yProps(0)} />
+          <Tab label="รายงานผู้ใช้" {...a11yProps(0)} />
           <Tab label="ตลาดที่ถูกใจ" {...a11yProps(1)} />
         </Tabs>
       </Box>
 
       <TabPanel value={value} index={0}>
-        รีวิวจากเจ้าของตลาด
-        {ReviewList.map((review, index) => (
-          <ReviewCard
-            key={index}
-            name={review.name}
-            rating={review.star}
-            review={review.description}
-          ></ReviewCard>
-        ))}
+        <div style={{ marginTop: "10px" }}>
+          <Button
+            onClick={handleClick}
+            variant="contained"
+            style={{
+              color: "black",
+              backgroundColor: "#ffc422",
+              fontSize: "18px",
+            }}
+          >
+            ตรวจสอบการรายงาน
+          </Button>
+        </div>
+        {noReport && reportlist.length === 0 ? (
+          <Typography variant="body1" style={{ margin: "10px 0" }}>
+            No report
+          </Typography>
+        ) : noReport ? (
+          reportlist.map((review, index) => (
+            <ReviewCard
+              key={index}
+              name={review.name}
+              rating={review.star}
+              review={review.description}
+            ></ReviewCard>
+          ))
+        ) : (
+          <div class="lds-roller">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        )}
       </TabPanel>
       <TabPanel value={value} index={1}>
         ตลาดที่ถูกใจ
@@ -106,7 +142,11 @@ export default function BasicTabs(props) {
                   justifyContent: "center",
                 }}
               >
-                <LikeCard market={selectMarket} setLiked={setLiked}></LikeCard>
+                <LikeCard
+                  market={selectMarket}
+                  setLiked={setLiked}
+                  targetid={marketdetail._id}
+                ></LikeCard>
               </p>
             );
           })

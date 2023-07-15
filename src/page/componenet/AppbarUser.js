@@ -55,7 +55,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function CustomeAppBar(props) {
-  const { img, name, role, signIn, signOut, uid } = props;
+  const { img, name, role, signIn, signOut, uid, refid } = props;
   console.log("awww" + name + "nooo" + uid);
   const navigate = useNavigate();
   const sendApi = () => {
@@ -92,6 +92,7 @@ export default function CustomeAppBar(props) {
                 signOut={signOut}
                 role={role}
                 uid={uid}
+                refid={refid}
                 alt="Josh Brush"
                 src="/static/images/avatar/1.jpg"
                 sx={{

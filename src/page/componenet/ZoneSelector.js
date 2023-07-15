@@ -16,9 +16,13 @@ function ZoneSelector(props) {
     <div>
       <select
         id="zone-select"
-        value={pickZone.zone}
+        value={pickZone.zone || ""}
         onChange={handleOptionChange}
+        style={{ maxWidth: "fit-content" }}
       >
+        <option value={""} disabled hidden>
+          Select a zone
+        </option>
         {zones.map((zone) => (
           <option key={zone._id} value={zone.zone}>
             {zone.zone}

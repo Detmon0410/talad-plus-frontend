@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { DataGrid } from "@mui/x-data-grid";
 import "./TableDate.css";
 import DateField from "./DateField";
@@ -6,6 +7,7 @@ import ZoneSelector from "./ZoneSelector";
 import Button from "@mui/material/Button";
 import { getSubStall } from "../m_booking/m_booking-service";
 import { postEditstatus, postReject } from "../m_control/m_control-service";
+import { getMerchant } from "../u_profilesM/u_profileMservice";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import Stack from "@mui/material/Stack";
@@ -41,6 +43,7 @@ export default function DataTable(props) {
   const [rating, setRating] = React.useState(2);
   const [reviewValue, setReviewValue] = React.useState("");
 
+  const navigate = useNavigate();
   const handleDateChange = (date) => {
     setPickDate(date);
   };
@@ -59,9 +62,22 @@ export default function DataTable(props) {
     setSelectedZone(pickZone);
     setIsDateDisabled(false);
   };
+  const sendApiC = async () => {
+    // const selectedRows = rows.filter((row) => selectionModel.includes(row.id));
+    // const payloadstatus = selectedRows[0].user;
+    //console.log(typeof selectedRows[0].User);
+    const selectedRows = rows.filter((row) => selectionModel.includes(row.id));
+    const refid = selectedRows[0].User;
+    const res = await getMerchant(refid);
+    navigate("/ProfileView", {
+      state: res,
+      uid: res._id,
+    });
+    console.log(res);
+  };
   const sendApiReport = async () => {
     const selectedRows = rows.filter((row) => selectionModel.includes(row.id));
-    const payloadstatus = selectedRows[0].user;
+    const payloadstatus = selectedRows[0].User;
     console.log(typeof selectedRows[0].User);
     const payload = {
       merchant: selectedRows[0].User,
@@ -165,12 +181,23 @@ export default function DataTable(props) {
           }}
         />
       </div>
+
       <div className="btn-container">
         <Button
           variant="contained"
           style={{
+            backgroundColor: "#225dff ",
+            fontSize: "16px",
+          }}
+          onClick={sendApiC}
+        >
+          ตรวจสอบผู้เช่า
+        </Button>
+        <Button
+          variant="contained"
+          style={{
             backgroundColor: "#33cc33",
-            fontSize: "18px",
+            fontSize: "16px",
           }}
           onClick={sentAPI}
         >
@@ -180,7 +207,7 @@ export default function DataTable(props) {
           variant="contained"
           style={{
             backgroundColor: "#cc3833",
-            fontSize: "18px",
+            fontSize: "16px",
           }}
           onClick={sentAPID}
         >
@@ -195,7 +222,7 @@ export default function DataTable(props) {
         {" "}
         <TextField
           id="review"
-          label="แสดงความคิดเห็น"
+          label="รายงานผู้เช่า"
           variant="outlined"
           multiline
           maxRows={4}

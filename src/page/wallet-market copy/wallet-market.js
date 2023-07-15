@@ -24,11 +24,9 @@ function WalletPage() {
     getmyWallet().then((res) => {
       setWalletDetail(res);
     });
-
     getMyHistory().then((res) => {
       setHistory(res);
     });
-
     setMoney(money - 100);
   };
 
@@ -106,6 +104,14 @@ function WalletPage() {
             className="money"
           >{`Money: ${WalletDetail[0].money}`}</Typography>
         </div>
+        <Button
+          variant="contained"
+          onClick={handleWithdrawMoney}
+          style={{ backgroundColor: "#225dff ", width: "150px" }}
+        >
+          Deposit
+        </Button>
+        <p></p>
         <Button
           variant="contained"
           onClick={handleWithdrawMoney}
