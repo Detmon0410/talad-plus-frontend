@@ -60,6 +60,7 @@ export default function BasicTabs(props) {
       setOnLoading(true);
     });
     setValue(newValue);
+    setNoReport(true);
   };
 
   const handleClick = () => {
@@ -70,6 +71,7 @@ export default function BasicTabs(props) {
       setNoReport(res.length === 0); // Set 'noReport' to true if 'res' is empty
     });
   };
+
   return (
     <Box sx={{ width: "100%" }}>
       <Box
