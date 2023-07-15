@@ -25,12 +25,7 @@ import { getSelectedStall } from "../componenet/visapayment-page/visapayment-ser
 import Visapayment from "../componenet/visapayment-page/visapayment";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
-import Dialog from "@material-ui/core/Dialog";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import { useTheme } from "@material-ui/core/styles";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
+
 function MProfile() {
   const navigate = useNavigate();
   const { state } = useLocation();
