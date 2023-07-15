@@ -9,19 +9,18 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { postDeleteImage } from "../m_profiles/m_profile-service";
 import { useSelector } from "react-redux";
 import { selectUserReducer } from "../../redux/user/selector";
+import { getMyImgList } from "../m_profiles/m_profile-service";
 
 export default function StandardImageList(props) {
-  const { pictureList } = props;
+  const { pictureList, setPictureList, marketdetail } = props;
   const [dataImg, setDataImg] = React.useState(new FormData());
   const userSelector = useSelector(selectUserReducer);
 
-  const handleDelete = (img) => {
+  const handleDelete = async (img) => {
     const last100Chars = img.slice(-100);
     const payload = { img: last100Chars };
-    console.log(last100Chars);
-    const res = postDeleteImage(payload);
-    console.log(res);
-    // Rest of the code...
+    await postDeleteImage(payload);
+    getMyImgList(marketdetail._id).then((res) => setPictureList(res.image));
   };
 
   const [selectedImg, setSelectedImg] = React.useState(null);

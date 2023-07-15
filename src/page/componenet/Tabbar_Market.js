@@ -100,7 +100,11 @@ export default function BasicTabs(props) {
         ) : (
           <div></div>
         )}
-        <ImgList pictureList={pictureList}></ImgList>
+        <ImgList
+          pictureList={pictureList}
+          setPictureList={setPictureList}
+          marketdetail={marketdetail}
+        ></ImgList>
       </TabPanel>
       <TabPanel value={value} index={1}>
         <p>รีวิวจากผู้เช่า</p>
