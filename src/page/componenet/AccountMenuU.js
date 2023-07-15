@@ -146,12 +146,12 @@ export default function AccountMenu(props) {
 
         <Divider />
 
-        <MenuItem onClick={handleClose}>
+        {/* <MenuItem onClick={handleClose}>
           <ListItemIcon>
             <Settings fontSize="small" />
           </ListItemIcon>
           ตั้งค่า
-        </MenuItem>
+        </MenuItem> */}
         <MenuItem onClick={signOut}>
           <NavLink to="login">
             <ListItemIcon>
