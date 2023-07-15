@@ -71,6 +71,8 @@ function Login() {
                 onChange={(e) => setPasswordInput(e.target.value)}
                 label="Password"
                 variant="filled"
+                type="password"
+                autoComplete="current-password"
               />
             </p>
           </Box>
