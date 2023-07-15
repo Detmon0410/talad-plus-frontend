@@ -25,6 +25,7 @@ import { selectUserReducer } from "./redux/user/selector";
 import { signOut } from "./redux/user/actions";
 import { useNavigate, Routes, Route, BrowserRouter } from "react-router-dom";
 import AdminMain from "./page/admin-page/admin_main";
+import Testaleart from "./page/componenet/testpage";
 
 function App() {
   const userSelector = useSelector(selectUserReducer);

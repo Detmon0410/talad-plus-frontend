@@ -9,7 +9,7 @@ import TextField from "@mui/material/TextField";
 import TableWaiting from "../componenet/Table_booking";
 import React, { useEffect } from "react";
 import { postCreateStall } from "./m_control-service";
-
+import Snackbar from "@material-ui/core/Snackbar";
 import { postMyMarket } from "../m_profiles/m_profile-service";
 import { selectUserReducer } from "../../redux/user/selector";
 import { useSelector } from "react-redux";
@@ -28,6 +28,7 @@ import {
   postRentStall,
 } from "../m_booking/m_booking-service";
 import { useLocation } from "react-router-dom";
+import CustomAlert from "../componenet/Alert2077";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -86,10 +87,14 @@ export default function BasicTabs() {
   });
   const [markettype, setMarketType] = React.useState();
   const [dateSelect, setDateSelect] = React.useState(null);
+  const [open, setOpen] = React.useState(false);
+  const [showAlert, setShowAlert] = React.useState(false);
+  const [serv, setServ] = React.useState("");
   const items = [
     { value: "Month", name: "รายเดือน" },
     { value: "Day", name: "รายวัน" },
   ];
+
   ///////////////////////////// TAB 1 ///////////////////////////////////////////////////
   useEffect(() => {
     console.log(date);
@@ -100,7 +105,9 @@ export default function BasicTabs() {
     setStallMarket(res);
     setValue(newValue);
   };
-
+  const handleClose = () => {
+    setOpen(false);
+  };
   const handleChangeBox = (e) => {
     // Destructuring
     const { value, checked } = e.target;
@@ -146,7 +153,8 @@ export default function BasicTabs() {
       !date
     ) {
       setMessage("Fill is empty ");
-
+      setServ("error");
+      setShowAlert(true);
       setShowMessage(true);
     } else {
       const payload = new FormData();
@@ -163,6 +171,10 @@ export default function BasicTabs() {
       navigate("/MControl", {
         state: pullstall,
       });
+      setMessage("Stall Created");
+      setServ("success");
+      setOpen(true);
+      setShowAlert(true);
       console.log(payload);
       console.log(res);
       console.log(pullstall);
@@ -170,6 +182,19 @@ export default function BasicTabs() {
   };
 
   /////////////////////////////////// Tab 2////////////////////////////////////////////////
+
+  useEffect(() => {
+    if (showAlert) {
+      const timer = setTimeout(() => {
+        setShowAlert(false);
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [showAlert]);
+
+  const handleCloseAlert = () => {
+    setShowAlert(false);
+  };
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -376,6 +401,12 @@ export default function BasicTabs() {
             เพยแพร่
           </Button>
         </p>
+        <CustomAlert
+          showAlert={showAlert}
+          message={message}
+          handleCloseAlert={handleCloseAlert}
+          serv={serv}
+        />
         <Alert
           message={message}
           showMessage={showMessage}

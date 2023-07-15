@@ -14,6 +14,7 @@ import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import Rating from "@mui/material/Rating";
 import { postReport } from "../m_control/m_control-service";
+import CustomAlert from "./Alert2077";
 export default function DataTable(props) {
   const { stallall, market } = props;
   const columns = [
@@ -53,6 +54,7 @@ export default function DataTable(props) {
   const [message, setMessage] = React.useState("");
   const [rating, setRating] = React.useState(2);
   const [reviewValue, setReviewValue] = React.useState("");
+  const [serv, setServ] = React.useState("");
 
   const navigate = useNavigate();
   const handleDateChange = (date) => {
@@ -61,6 +63,24 @@ export default function DataTable(props) {
   useEffect(() => {
     console.log(selectionModel);
   }, [selectionModel]);
+  const [showAlert, setShowAlert] = useState(false);
+
+  const handleShowAlert = () => {
+    setShowAlert(true);
+  };
+
+  useEffect(() => {
+    if (showAlert) {
+      const timer = setTimeout(() => {
+        setShowAlert(false);
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [showAlert]);
+
+  const handleCloseAlert = () => {
+    setShowAlert(false);
+  };
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -96,6 +116,9 @@ export default function DataTable(props) {
       rating: rating,
     };
     const res = await postReport(payload);
+    setMessage("Report Sucess");
+    setServ("success");
+    setShowAlert(true);
     console.log(payloadstatus);
   };
   const sentAPID = async () => {
@@ -272,6 +295,12 @@ export default function DataTable(props) {
           >
             รายงาน
           </Button>
+          <CustomAlert
+            showAlert={showAlert}
+            message={message}
+            handleCloseAlert={handleCloseAlert}
+            serv={serv}
+          />
         </div>
       </div>
     </div>

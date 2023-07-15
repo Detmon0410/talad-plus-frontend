@@ -62,18 +62,22 @@ export default function StandardImageList(props) {
                 }}
                 onClick={() => handleOpenImage(img)}
               />
-              <IconButton
-                aria-label="Delete"
-                onClick={() => handleDelete(img)}
-                sx={{
-                  position: "absolute",
-                  bottom: 0,
-                  right: 0,
-                  backgroundColor: "rgba(255, 255, 255, 0.5)",
-                }}
-              >
-                <DeleteIcon />
-              </IconButton>
+              {userSelector.role == "Market" ? (
+                <IconButton
+                  aria-label="Delete"
+                  onClick={() => handleDelete(img)}
+                  sx={{
+                    position: "absolute",
+                    bottom: 0,
+                    right: 0,
+                    backgroundColor: "rgba(255, 255, 255, 0.5)",
+                  }}
+                >
+                  <DeleteIcon />
+                </IconButton>
+              ) : (
+                <p></p>
+              )}
             </ImageListItem>
           ))
         ) : (

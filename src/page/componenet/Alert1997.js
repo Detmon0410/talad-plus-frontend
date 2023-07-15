@@ -11,6 +11,12 @@ const Alert = () => {
       unmountOnExit
       onEnter={() => setShowButton(false)}
       onExited={() => setShowButton(true)}
+      sx={{
+        position: "fixed",
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%, -50%)",
+      }}
     >
       <Alert
         ref={nodeRef}
