@@ -108,7 +108,7 @@ export default function BasicTabs(props) {
           {ReviewList.map((review, index) => (
             <ReviewCard
               key={index}
-              name={review.name}
+              name={review.profile.name}
               rating={review.star}
               review={review.description}
             />

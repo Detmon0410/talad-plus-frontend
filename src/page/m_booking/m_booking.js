@@ -25,7 +25,12 @@ import { getSelectedStall } from "../componenet/visapayment-page/visapayment-ser
 import Visapayment from "../componenet/visapayment-page/visapayment";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
-
+import Dialog from "@material-ui/core/Dialog";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import { useTheme } from "@material-ui/core/styles";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 function MProfile() {
   const navigate = useNavigate();
   const { state } = useLocation();
@@ -51,7 +56,15 @@ function MProfile() {
   const [exp_year, setexp_year] = React.useState("");
   const [exp_month, setexp_month] = React.useState("");
   const [cvc, setccvin] = React.useState("");
+  const [openP, setOpenP] = useState(false);
 
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClosePopup = () => {
+    setOpen(false);
+  };
   const AlertA = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
   });
@@ -468,6 +481,32 @@ function MProfile() {
             </p>
           </p>
 
+          <Box>
+            {zoneSetImg ? (
+              <Box
+                maxWidth={500}
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                <TextField
+                  id="outlined-read-only-input"
+                  label="รายระเอียดการเช่า"
+                  defaultValue={selectedZone.about}
+                  InputProps={{
+                    readOnly: true,
+                  }}
+                  variant="outlined"
+                  multiline
+                  rows={4}
+                  fullWidth
+                />
+              </Box>
+            ) : (
+              <div></div>
+            )}
+          </Box>
           <p></p>
           <Button
             variant="contained"
@@ -477,7 +516,7 @@ function MProfile() {
             }}
             onClick={sendApiRent}
           >
-            Submit
+            ยืนยันการจอง
           </Button>
 
           <p></p>

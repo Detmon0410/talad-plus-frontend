@@ -16,13 +16,11 @@ export default function StandardImageList(props) {
   const userSelector = useSelector(selectUserReducer);
 
   const handleDelete = (img) => {
-    const payload = new FormData();
-    payload.append("text", "hello");
-    payload.append("img", img); // Use 'img' directly instead of 'dataImg'
-
-    // const res = postDeleteImage(payload);
-    console.log(payload);
-
+    const last100Chars = img.slice(-100);
+    const payload = { img: last100Chars };
+    console.log(last100Chars);
+    const res = postDeleteImage(payload);
+    console.log(res);
     // Rest of the code...
   };
 

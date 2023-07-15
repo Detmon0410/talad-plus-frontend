@@ -19,13 +19,8 @@ export async function getMyImgList(marketId) {
 }
 
 export async function postDeleteImage(payload) {
-  const response = await axiosInstance.post(`/manage/deleteimage`, payload, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
-  });
+  const response = await axiosInstance.post(`/manage/deleteimage`, payload);
 }
-
 // Service function to patch the detail of a market
 export async function patchDetail(payload) {
   try {

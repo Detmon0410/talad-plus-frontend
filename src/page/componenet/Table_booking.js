@@ -18,11 +18,22 @@ export default function DataTable(props) {
   const { stallall, market } = props;
   const columns = [
     { field: "Number", headerName: "Number", width: 100 },
-    { field: "Name", headerName: "Name", width: 130 },
-    { field: "Payment", headerName: "Payment", width: 130 },
     {
       field: "Status",
       headerName: "Status",
+      width: 150,
+    },
+
+    { field: "Name", headerName: "Name", width: 130 },
+    { field: "Payment", headerName: "Payment", width: 130 },
+    {
+      field: "Start",
+      headerName: "Start",
+      width: 150,
+    },
+    {
+      field: "End",
+      headerName: "End",
       width: 150,
     },
   ];
@@ -146,6 +157,8 @@ export default function DataTable(props) {
         Status: item.status,
         Payment: item.payment,
         User: item.user,
+        Start: item.dateStart,
+        End: item.dateEnd,
       };
     });
     setRows(newData);
