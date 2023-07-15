@@ -6,13 +6,26 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
+import { postDeleteImage } from "../m_profiles/m_profile-service";
+import { useSelector } from "react-redux";
+import { selectUserReducer } from "../../redux/user/selector";
 
 export default function StandardImageList(props) {
   const { pictureList } = props;
-  const handleDelete = (index) => {
-    // Handle the delete action for the image at the specified index
-    // You can update the pictureList array or perform any necessary actions
+  const [dataImg, setDataImg] = React.useState(new FormData());
+  const userSelector = useSelector(selectUserReducer);
+
+  const handleDelete = (img) => {
+    const payload = new FormData();
+    payload.append("text", "hello");
+    payload.append("img", img); // Use 'img' directly instead of 'dataImg'
+
+    // const res = postDeleteImage(payload);
+    console.log(payload);
+
+    // Rest of the code...
   };
+
   const [selectedImg, setSelectedImg] = React.useState(null);
   const handleOpenImage = (img) => {
     setSelectedImg(img);
@@ -54,7 +67,7 @@ export default function StandardImageList(props) {
               />
               <IconButton
                 aria-label="Delete"
-                onClick={() => handleDelete(index)}
+                onClick={() => handleDelete(img)}
                 sx={{
                   position: "absolute",
                   bottom: 0,

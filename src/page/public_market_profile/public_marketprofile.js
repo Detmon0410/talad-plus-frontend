@@ -117,7 +117,7 @@ function MProfile() {
                 "& > legend": { mt: 2 },
               }}
             >
-              <Typography component="legend"></Typography>
+              <Typography component="legend">คะแนนตลาด</Typography>
               <Rating
                 size="large"
                 name="no-value"
@@ -126,15 +126,20 @@ function MProfile() {
               />
             </Box>
           </p>
-          <TextField
-            id="outlined-multiline-static"
-            label="About"
-            multiline
-            rows={4}
-            defaultValue="ตลาดนัดเปิดใหม่ ติดถนนลาดจอดรถกว้าง พื้นที่กว้าง ห้องน้ำสะอาเ"
-            sx={{ width: "100%" }}
-            disabled
-          />
+
+          <Typography
+            variant="body1"
+            component="div"
+            sx={{
+              color: "black", // Set text color to black
+              border: "1px solid white", // Add border with white color
+              padding: "8px",
+              borderRadius: "4px",
+              boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", // Add drop shadow effect
+            }}
+          >
+            {marketDetail.detail}
+          </Typography>
           <p></p>
           {userSelector.role !== "Market" ? (
             <Box>
@@ -154,7 +159,6 @@ function MProfile() {
             <Box></Box>
           )}
           <p></p>
-
           <div
             className="reviewbox-container"
             style={{ display: "flex", alignItems: "center" }}
@@ -209,7 +213,6 @@ function MProfile() {
               )}
             </div>
           </div>
-
           <p></p>
           <Tabbar marketdetail={marketDetail}></Tabbar>
         </Container>

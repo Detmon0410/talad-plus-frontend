@@ -43,6 +43,7 @@ function Registor() {
       payload.append("phone", phonenumberInput);
       payload.append("address", addressInput);
       payload.append("subdistrict", val.subdistrict);
+      payload.append("ownername", ownernameInput);
       payload.append("province", val.province);
       payload.append("district", val.district);
       payload.append("post", val.postalCode);

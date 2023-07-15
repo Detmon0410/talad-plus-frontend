@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import EditIcon from "@mui/icons-material/Edit";
 import "../App.css";
 import "../componenet/Tabbar_Market.css";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -18,6 +19,9 @@ import { useNavigate } from "react-router-dom";
 import { getStallAll } from "../m_booking/m_booking-service";
 import { postCreateReview } from "../public_market_profile/public_marketprofile-service";
 import { getReview } from "../public_market_profile/public_marketprofile-service";
+import { patchDetail } from "./m_profile-service";
+import SaveIcon from "@mui/icons-material/Save";
+import CancelIcon from "@mui/icons-material/Cancel";
 
 function MProfile() {
   const navigate = useNavigate();
@@ -28,7 +32,7 @@ function MProfile() {
   const [date, setDate] = React.useState(new Date());
   const [rating, setRating] = React.useState(2);
   const [reviewValue, setReviewValue] = React.useState("");
-
+  const [detailVal, setDtalVal] = React.useState(marketDetail.detail);
   const handleClick = async () => {
     const marketId = marketDetail._id;
     const res = await getStallAll(marketId);
@@ -62,7 +66,33 @@ function MProfile() {
     //   console.log(res);
     // });
   }, []);
+  const [isEditing, setIsEditing] = React.useState(false);
+  const [textValue, setTextValue] = React.useState(marketDetail.detail);
 
+  const handleEditClick = () => {
+    setIsEditing(true);
+  };
+
+  const handleSaveClick = async (event) => {
+    try {
+      const payload = { detail: textValue, marketid: marketDetail._id };
+      const res = await patchDetail(payload);
+      setIsEditing(false);
+      console.log(res);
+      // Perform additional save functionality if needed
+    } catch (error) {
+      console.error(error);
+      // Handle error if needed
+    }
+  };
+
+  const handleCancel = (event) => {
+    setTextValue(marketDetail.detail);
+    setIsEditing(false);
+  };
+  const handleChange = (event) => {
+    setTextValue(event.target.value);
+  };
   return (
     <div className="App">
       <React.Fragment>
@@ -117,7 +147,7 @@ function MProfile() {
                 "& > legend": { mt: 2 },
               }}
             >
-              <Typography component="legend"></Typography>
+              <Typography component="legend">คะแนนตลาด</Typography>
               <Rating
                 size="large"
                 name="no-value"
@@ -131,10 +161,38 @@ function MProfile() {
             label="About"
             multiline
             rows={4}
-            defaultValue="ตลาดนัดเปิดใหม่ ติดถนนลาดจอดรถกว้าง พื้นที่กว้าง ห้องน้ำสะอาเ"
-            sx={{ width: "100%" }}
-            disabled
+            value={textValue}
+            onChange={handleChange}
+            disabled={!isEditing}
+            sx={{ width: "100%", mr: 2 }}
           />
+          <Box display="flex" justifyContent="flex-end" mt={2}>
+            {isEditing ? (
+              <>
+                <Button
+                  onClick={handleSaveClick}
+                  variant="contained"
+                  sx={{ marginRight: 2 }}
+                >
+                  <SaveIcon />
+                </Button>
+                <Button
+                  onClick={handleCancel}
+                  variant="contained"
+                  style={{
+                    backgroundColor: "#e41b17",
+                  }}
+                >
+                  <CancelIcon />
+                </Button>
+              </>
+            ) : (
+              <Button onClick={handleEditClick} variant="contained">
+                <EditIcon />
+              </Button>
+            )}
+          </Box>
+
           <p></p>
           {userSelector.role !== "Market" ? (
             <Box>

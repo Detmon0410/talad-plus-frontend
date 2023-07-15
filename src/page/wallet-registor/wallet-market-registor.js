@@ -22,7 +22,7 @@ function RegistorWallet() {
     } else {
       const payload = {
         bank_name: BankNameInput,
-        bank_user: walletNameInput,
+        bank_username: walletNameInput,
         bank_number: walletNumberInput,
       };
       postCreateWallet(payload);

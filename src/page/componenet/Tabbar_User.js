@@ -118,16 +118,7 @@ export default function BasicTabs(props) {
             ></ReviewCard>
           ))
         ) : (
-          <div class="lds-roller">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-          </div>
+          <div class="lds-roller"></div>
         )}
       </TabPanel>
       <TabPanel value={value} index={1}>
