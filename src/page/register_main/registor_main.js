@@ -112,6 +112,8 @@ function Login() {
               onChange={(e) => setPasswordInput(e.target.value)}
               label="รหัสผ่าน"
               variant="filled"
+              type="password"
+              autoComplete="current-password"
             />
           </p>
           <p>
@@ -123,6 +125,8 @@ function Login() {
               variant="filled"
               error={!isValidPassword}
               helperText={!isValidPassword && "Password doesn't match"}
+              type="password"
+              autoComplete="current-password"
             />
           </p>
           <p>
