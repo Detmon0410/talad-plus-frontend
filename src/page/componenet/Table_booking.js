@@ -132,6 +132,9 @@ export default function DataTable(props) {
     };
     console.log(payloadstatus[0].id);
     postReject(marketId, payloadstatus);
+    setMessage("Delete Sucess");
+    setServ("success");
+    setShowAlert(true);
     getSubStall(payload, marketId).then((res) => {
       SetAvailableNumber(res);
       console.log(res);
@@ -150,6 +153,9 @@ export default function DataTable(props) {
       };
       console.log(payloadstatus);
       postEditstatus(marketId, payloadstatus);
+      setMessage("Confirm User Complete");
+      setServ("success");
+      setShowAlert(true);
       getSubStall(payload, marketId).then((res) => {
         SetAvailableNumber(res);
         console.log(res);
